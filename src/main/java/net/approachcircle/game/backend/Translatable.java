@@ -1,7 +1,7 @@
 package net.approachcircle.game.backend;
 
 
-public interface ITranslatable {
+public interface Translatable {
     float getX();
     float getY();
     void setX(float x);

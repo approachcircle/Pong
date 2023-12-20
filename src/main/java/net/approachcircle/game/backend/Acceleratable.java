@@ -1,6 +1,6 @@
 package net.approachcircle.game.backend;
 
-public interface IAcceleratable {
+public interface Acceleratable {
     float getDeltaX();
     void setDeltaX(float deltaX);
     float getDeltaY();

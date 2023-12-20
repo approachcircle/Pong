@@ -1,6 +1,6 @@
 package net.approachcircle.game.backend;
 
-public interface IScalable {
+public interface Scalable {
     float getWidth();
     float getHeight();
     void setWidth(float width);
