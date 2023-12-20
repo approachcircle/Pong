@@ -10,10 +10,10 @@ public class TestScreen extends Screen {
     public TestScreen() {
         button = new Button("test button", true, (x, y, button) -> {
             System.out.println("button 1 clicked");
-        });
+        }, Game.getInstance());
         button2 = new Button("test button 2", true, (x, y, button) -> {
             System.out.println("button 2 clicked");
-        });
+        }, Game.getInstance());
         button.center();
         button2.setX(button.getX() + 100);
         button2.setY(button.getY() + 100);

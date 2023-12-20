@@ -1,9 +1,7 @@
 package net.approachcircle.game.backend;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import net.approachcircle.game.Game;
 
 public class Button implements Renderable, Transformable {
     private float x;
@@ -14,10 +12,12 @@ public class Button implements Renderable, Transformable {
     private final float padding = 30;
     private final ButtonClickListener listener;
     private InputAdapter inputProcessor;
+    private final InputManager inputManager;
 
-    public Button(String text, boolean background, float x, float y, ButtonClickListener listener) {
+    public Button(String text, boolean background, float x, float y, ButtonClickListener listener, InputManager inputManager) {
         this.background = background;
         this.listener = listener;
+        this.inputManager = inputManager;
         setX(x);
         setY(y);
         textRenderable = new TextRenderable(text, 0.75f, getX(), getY());
@@ -29,31 +29,33 @@ public class Button implements Renderable, Transformable {
     }
 
     public Button(String text, boolean background) {
-        this(text, background, 0, 0, (x, y, b) -> {});
+        this(text, background, 0, 0, null, null);
     }
 
-    public Button(String text, boolean background, ButtonClickListener listener) {
-        this(text, background, 0, 0, listener);
+    public Button(String text, boolean background, ButtonClickListener listener, InputManager inputManager) {
+        this(text, background, 0, 0, listener, inputManager);
     }
 
     private void updateInputProcessor() {
+        // no input manager or listener provided, don't bother setting input processor
+        if (inputManager == null || listener == null) {
+            return;
+        }
         if (inputProcessor != null) {
-            Game.getInstance().removeInputProcessor(inputProcessor);
+            inputManager.removeInputProcessor(inputProcessor);
         }
         inputProcessor = new InputAdapter() {
             @Override
             public boolean touchUp(int x, int y, int pointer, int button) {
                 // cursor coordinates must be subtracted from screen height to get absolute coordinates
                 if (x >= getX() && x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() -  y <= getY() + getHeight()) {
-                    if (button == Input.Buttons.LEFT) {
-                        listener.onClick(x, Gdx.graphics.getHeight() - y, button);
-                        return true;
-                    }
+                    listener.onClick(x, Gdx.graphics.getHeight() - y, button);
+                    return true;
                 }
                 return false;
             }
         };
-        Game.getInstance().addInputProcessor(inputProcessor);
+        inputManager.addInputProcessor(inputProcessor);
     }
 
     @Override
