@@ -1,11 +1,11 @@
 package net.approachcircle.game.backend;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import net.approachcircle.game.Game;
 
-public class Button extends BasicRenderable implements ITransformable {
+public class Button extends BasicRenderable implements Transformable {
     private float x;
     private float y;
     private final boolean background;
@@ -13,6 +13,7 @@ public class Button extends BasicRenderable implements ITransformable {
     private final TextRenderable textRenderable;
     private final float padding = 30;
     private final ButtonClickListener listener;
+    private InputAdapter inputProcessor;
 
     public Button(String text, boolean background, float x, float y, ButtonClickListener listener) {
         this.background = background;
@@ -36,7 +37,10 @@ public class Button extends BasicRenderable implements ITransformable {
     }
 
     private void updateInputProcessor() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
+        if (inputProcessor != null) {
+            Game.getInstance().removeInputProcessor(inputProcessor);
+        }
+        inputProcessor = new InputAdapter() {
             @Override
             public boolean touchUp(int x, int y, int pointer, int button) {
                 // cursor coordinates must be subtracted from screen height to get absolute coordinates
@@ -48,7 +52,9 @@ public class Button extends BasicRenderable implements ITransformable {
                 }
                 return false;
             }
-        });
+        };
+        Game.getInstance().addInputProcessor(inputProcessor);
+        // Gdx.input.setInputProcessor();
     }
 
     @Override

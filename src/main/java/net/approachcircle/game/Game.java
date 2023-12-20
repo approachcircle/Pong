@@ -1,24 +1,22 @@
 package net.approachcircle.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
-import net.approachcircle.game.backend.Crosshair;
-import net.approachcircle.game.backend.IScreenManager;
+import net.approachcircle.game.backend.*;
 import net.approachcircle.game.backend.Screen;
-import net.approachcircle.game.backend.ScreenUtility;
 
-public class Game extends ApplicationAdapter implements IScreenManager {
+public class Game extends ApplicationAdapter implements ScreenManager, InputManager {
     private static Screen currentScreen;
     private boolean clearOnRender = true;
     public static Game instance;
     private Crosshair crosshair;
+    private InputMultiplexer inputMultiplexer;
 
     @Override
     public void create() {
         ScreenUtility.initialise();
+        Gdx.input.setInputProcessor(inputMultiplexer);
         setCurrentScreen(new PongScreen());
         crosshair = new Crosshair();
     }
@@ -51,5 +49,20 @@ public class Game extends ApplicationAdapter implements IScreenManager {
     public void setCurrentScreen(Screen newScreen, boolean clearOnRender) {
         this.clearOnRender = clearOnRender;
         currentScreen = newScreen;
+    }
+
+    @Override
+    public void addInputProcessor(InputProcessor processor) {
+        if (inputMultiplexer == null) {
+            inputMultiplexer = new InputMultiplexer();
+        }
+        inputMultiplexer.addProcessor(processor);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    @Override
+    public void removeInputProcessor(InputProcessor processor) {
+        inputMultiplexer.removeProcessor(processor);
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 }
