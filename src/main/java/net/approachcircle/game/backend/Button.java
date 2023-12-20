@@ -54,7 +54,6 @@ public class Button extends BasicRenderable implements Transformable {
             }
         };
         Game.getInstance().addInputProcessor(inputProcessor);
-        // Gdx.input.setInputProcessor();
     }
 
     @Override
