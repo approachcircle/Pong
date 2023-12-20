@@ -6,7 +6,7 @@ import net.approachcircle.game.backend.ScreenUtility;
 import net.approachcircle.game.backend.TextRenderable;
 
 public class VictoryScreen extends Screen {
-    private TextRenderable text;
+    private final TextRenderable text;
     public VictoryScreen() {
         text = new TextRenderable("you win", 1);
         text.center();

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Crosshair extends BasicRenderable {
-    private ArrayList<Integer> toggleKeys = new ArrayList<>(List.of(new Integer[] {
+    private final ArrayList<Integer> toggleKeys = new ArrayList<>(List.of(new Integer[] {
             Input.Keys.CONTROL_LEFT,
             Input.Keys.ALT_LEFT,
             Input.Keys.C

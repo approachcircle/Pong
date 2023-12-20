@@ -6,7 +6,7 @@ import net.approachcircle.game.backend.ScreenUtility;
 import net.approachcircle.game.backend.TextRenderable;
 
 public class DefeatScreen extends Screen {
-    private TextRenderable text;
+    private final TextRenderable text;
     public DefeatScreen() {
         text = new TextRenderable("you lose", 1);
         text.center();
