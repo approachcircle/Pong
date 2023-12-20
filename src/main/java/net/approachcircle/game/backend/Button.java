@@ -1,5 +1,10 @@
 package net.approachcircle.game.backend;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+
 public class Button extends BasicRenderable implements ITransformable {
     private float x;
     private float y;
@@ -7,16 +12,43 @@ public class Button extends BasicRenderable implements ITransformable {
     private ButtonBackground buttonBackground;
     private final TextRenderable textRenderable;
     private final float padding = 30;
+    private final ButtonClickListener listener;
 
-    //TODO: implement button click event listener
-    public Button(String text, boolean background) {
+    public Button(String text, boolean background, float x, float y, ButtonClickListener listener) {
         this.background = background;
-        textRenderable = new TextRenderable(text, 0.75f);
+        this.listener = listener;
+        setX(x);
+        setY(y);
+        textRenderable = new TextRenderable(text, 0.75f, getX(), getY());
         if (background) {
             buttonBackground = new ButtonBackground();
             setWidth(textRenderable.getWidth() - textRenderable.getScale() + padding);
             setHeight(textRenderable.getHeight() + padding + textRenderable.getScale());
         }
+    }
+
+    public Button(String text, boolean background) {
+        this(text, background, 0, 0, (x, y, b) -> {});
+    }
+
+    public Button(String text, boolean background, ButtonClickListener listener) {
+        this(text, background, 0, 0, listener);
+    }
+
+    private void updateInputProcessor() {
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean touchUp(int x, int y, int pointer, int button) {
+                // cursor coordinates must be subtracted from screen height to get absolute coordinates
+                if (x >= getX() && x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() -  y <= getY() + getHeight()) {
+                    if (button == Input.Buttons.LEFT) {
+                        listener.onClick(x, Gdx.graphics.getHeight() - y, button);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -46,7 +78,7 @@ public class Button extends BasicRenderable implements ITransformable {
         if (!background) {
             return textRenderable.getHeight();
         }
-        return buttonBackground.getWidth();
+        return buttonBackground.getHeight();
     }
 
     @Override
@@ -78,11 +110,13 @@ public class Button extends BasicRenderable implements ITransformable {
     @Override
     public void setX(float x) {
         this.x = x;
+        updateInputProcessor();
     }
 
     @Override
     public void setY(float y) {
         this.y = y;
+        updateInputProcessor();
     }
 
     @Override
