@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class TextRenderable extends BasicRenderable implements ITransformable {
+public class TextRenderable extends BasicRenderable implements Transformable {
     private final BitmapFont font;
     private final Batch batch = new SpriteBatch();
     private GlyphLayout glyphLayout;

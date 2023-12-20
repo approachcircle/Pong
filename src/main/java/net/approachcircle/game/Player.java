@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.approachcircle.game.backend.*;
 
 
-public class Player extends BasicRenderable implements ITransformable, IAcceleratable {
+public class Player extends BasicRenderable implements Transformable, Acceleratable {
     private float width;
     private float height;
     private float x;
@@ -41,12 +41,6 @@ public class Player extends BasicRenderable implements ITransformable, IAccelera
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && getY() > 0) {
             setY(getY() - (deltaY) * speed);
         }
-//        if (getY() > Ball.getInstance().getY() - (getHeight() / 2)) {
-//            setY(getY() - speed);
-//        }
-//        if (getY() < Ball.getInstance().getY() - (getHeight() / 2)) {
-//            setY(getY() + speed);
-//        }
         shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
         shapeRenderer.end();
     }
