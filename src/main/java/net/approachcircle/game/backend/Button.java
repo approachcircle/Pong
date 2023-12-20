@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import net.approachcircle.game.Game;
 
-public class Button extends BasicRenderable implements Transformable {
+public class Button implements Renderable, Transformable {
     private float x;
     private float y;
     private final boolean background;

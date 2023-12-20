@@ -1,5 +1,4 @@
 package net.approachcircle.game.backend;
 
-public abstract class Screen extends BasicRenderable {
-    public abstract void render();
+public abstract class Screen implements Renderable {
 }

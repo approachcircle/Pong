@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Crosshair extends BasicRenderable {
+public class Crosshair extends ShapeRenderable {
     private final ArrayList<Integer> toggleKeys = new ArrayList<>(List.of(new Integer[] {
             Input.Keys.CONTROL_LEFT,
             Input.Keys.ALT_LEFT,

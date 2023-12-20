@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.approachcircle.game.backend.*;
 
-public class Ball extends BasicRenderable implements Acceleratable, Transformable {
+public class Ball extends ShapeRenderable implements Acceleratable, Transformable {
     private float x;
     private float y;
     private float radius;

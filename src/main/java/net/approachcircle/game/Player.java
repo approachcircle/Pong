@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.approachcircle.game.backend.*;
 
 
-public class Player extends BasicRenderable implements Transformable, Acceleratable {
+public class Player extends ShapeRenderable implements Transformable, Acceleratable {
     private float width;
     private float height;
     private float x;

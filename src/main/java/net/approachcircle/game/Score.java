@@ -1,10 +1,10 @@
 package net.approachcircle.game;
 
 import com.badlogic.gdx.Gdx;
-import net.approachcircle.game.backend.BasicRenderable;
+import net.approachcircle.game.backend.Renderable;
 import net.approachcircle.game.backend.TextRenderable;
 
-public class Score extends BasicRenderable {
+public class Score implements Renderable {
     private int playerScore = 0;
     private int opponentScore = 0;
     private final float SCALE = 0.75f;

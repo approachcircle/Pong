@@ -3,7 +3,7 @@ package net.approachcircle.game.backend;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class ButtonBackground extends BasicRenderable implements Transformable {
+public class ButtonBackground extends ShapeRenderable implements Transformable {
     private float x;
     private float y;
     private float width;
