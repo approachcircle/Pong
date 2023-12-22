@@ -1,6 +1,7 @@
 package net.approachcircle.game.backend;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -16,42 +17,43 @@ public class TextRenderable implements Transformable, Renderable {
     private boolean recalculateCenterX = false;
     private boolean recalculateCenterY = false;
     private final float scale;
+    private Color color;
 
-    public TextRenderable(String text, float scale, float x, float y) {
+    public TextRenderable(String text, float scale, Color color) {
         font = new BitmapFont(new FileHandle("src/main/resources/yu_gothic_ui.fnt"));
-        this.x = x;
-        this.y = y;
+        this.x = 0;
+        this.y = 0;
         this.scale = scale;
+        setColor(color);
         font.getData().setScale(scale);
         setText(text);
     }
 
     public TextRenderable(String text, float scale) {
-        this(text, scale, 0, 0);
+        this(text, scale, Color.WHITE);
     }
 
-    public TextRenderable(String text, float x, float y) {
-        this(text, 1, x, y);
+    public TextRenderable(String text, Color color) {
+        this(text, 1, color);
     }
-
     public TextRenderable(String text) {
-        this(text, 1, 0, 0);
+        this(text, 1, Color.WHITE);
     }
 
-
-    public TextRenderable(float scale, float x, float y) {
-        this("", scale, x, y);
+    public TextRenderable(float scale, Color color) {
+        this("", scale, color);
     }
 
     public TextRenderable(float scale) {
-        this("", scale, 0, 0);
+        this("", scale, Color.WHITE);
     }
 
-    public TextRenderable(float x, float y) {
-        this("", 1, x, y);
+    public TextRenderable(Color color) {
+        this("", 1, color);
     }
+
     public TextRenderable() {
-        this("", 1, 0, 0);
+        this("", 1, Color.WHITE);
     }
 
     @Override
@@ -151,5 +153,14 @@ public class TextRenderable implements Transformable, Renderable {
     @Override
     public void setHeight(float height) {
         throw new RuntimeException("though this is transformable, the height may not be set manually, only scaled");
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+        font.setColor(color);
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
