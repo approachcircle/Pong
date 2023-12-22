@@ -16,7 +16,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
         screenStack = new ScreenStack();
         ScreenUtility.initialise();
         Gdx.input.setInputProcessor(inputMultiplexer);
-        screenStack.push(new PongScreen());
+        screenStack.push(new MainMenuScreen());
         crosshair = new Crosshair();
     }
 
