@@ -35,10 +35,10 @@ public class Player extends ShapeRenderable implements Transformable, Accelerata
     public void render() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLUE);
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && getY() <= Gdx.graphics.getHeight() - getHeight()) {
+        if ((Gdx.input.isKeyPressed(Input.Keys.UP) || (Gdx.input.isKeyPressed(Input.Keys.W)) && getY() <= Gdx.graphics.getHeight() - getHeight())) {
             setY(getY() + (deltaX) * speed);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && getY() > 0) {
+        if ((Gdx.input.isKeyPressed(Input.Keys.DOWN) || (Gdx.input.isKeyPressed(Input.Keys.S)) && getY() > 0)) {
             setY(getY() - (deltaY) * speed);
         }
         shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
