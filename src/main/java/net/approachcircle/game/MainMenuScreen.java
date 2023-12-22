@@ -18,7 +18,7 @@ public class MainMenuScreen extends Screen {
         title.centerX();
         title.setY(Gdx.graphics.getHeight() - title_padding);
         singleplayerButton = new Button("Singleplayer", true, (x, y, b) -> {
-            Game.getInstance().getScreenStack().push(new PongScreen());
+            Game.getInstance().getScreenStack().push(new DifficultySelectScreen());
         }, Game.getInstance());
         singleplayerButton.center();
         singleplayerButton.setY(singleplayerButton.getY() + sp_button_padding);

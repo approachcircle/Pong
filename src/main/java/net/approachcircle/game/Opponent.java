@@ -32,4 +32,18 @@ public class Opponent extends Player {
         }
         shapeRenderer.end();
     }
+
+    public void setDifficulty(Difficulty difficulty) {
+        switch (difficulty) {
+            case Easy -> {
+                setSpeed(getSpeed() - 7);
+            }
+            case Normal -> {
+                setSpeed(getSpeed() - 4);
+            }
+            case Hard -> {
+                setSpeed(getSpeed());
+            }
+        }
+    }
 }

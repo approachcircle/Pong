@@ -11,10 +11,11 @@ public class PongScreen extends Screen {
     private final Score score;
     private final ScreenStack screenStack;
 
-    public PongScreen() {
+    public PongScreen(Difficulty difficulty) {
         this.screenStack = Game.getInstance().getScreenStack();
         player = Player.getInstance();
         opponent = Opponent.getInstance();
+        opponent.setDifficulty(difficulty);
         ball = Ball.getInstance();
         score = Score.getInstance();
     }
@@ -26,10 +27,10 @@ public class PongScreen extends Screen {
         ball.render();
         score.render();
         if (score.playerWon()) {
-            screenStack.push(new VictoryScreen());
+            screenStack.push(new ResultScreen(Outcome.Win));
         }
         if (score.opponentWon()) {
-            screenStack.push(new DefeatScreen());
+            screenStack.push(new ResultScreen(Outcome.Lose));
         }
         if (gameFinished()) {
             ball.center();
