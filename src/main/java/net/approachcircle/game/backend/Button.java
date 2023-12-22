@@ -9,7 +9,7 @@ public class Button implements Renderable, Transformable {
     private final boolean background;
     private ButtonBackground buttonBackground;
     private final TextRenderable textRenderable;
-    private final float padding = 30;
+    private final float padding = 50;
     private final ButtonClickListener listener;
     private InputAdapter inputProcessor;
     private final InputManager inputManager;
