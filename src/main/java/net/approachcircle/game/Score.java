@@ -29,14 +29,6 @@ public class Score implements Renderable {
 
     @Override
     public void render() {
-        if (playerWon()) {
-            reset();
-            Game.getInstance().setCurrentScreen(new VictoryScreen());
-        }
-        if (opponentWon()) {
-            reset();
-            Game.getInstance().setCurrentScreen(new DefeatScreen());
-        }
         renderable.setText(String.format("%s : %s", playerScore, opponentScore));
         renderable.render();
     }
