@@ -1,8 +1,6 @@
 package net.approachcircle.game;
 
-import net.approachcircle.game.backend.InputManager;
 import net.approachcircle.game.backend.Screen;
-import net.approachcircle.game.backend.ScreenManager;
 import net.approachcircle.game.backend.ScreenStack;
 
 
