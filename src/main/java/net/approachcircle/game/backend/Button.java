@@ -20,7 +20,9 @@ public class Button implements Renderable, Transformable {
         this.inputManager = inputManager;
         setX(x);
         setY(y);
-        textRenderable = new TextRenderable(text, 0.75f, getX(), getY());
+        textRenderable = new TextRenderable(text, 0.75f);
+        textRenderable.setX(getX());
+        textRenderable.setY(getY());
         if (background) {
             buttonBackground = new ButtonBackground();
             setWidth(textRenderable.getWidth() - textRenderable.getScale() + padding);
