@@ -7,29 +7,29 @@ import net.approachcircle.game.backend.*;
 import net.approachcircle.game.backend.Screen;
 
 public class Game extends ApplicationAdapter implements ScreenManager, InputManager {
-    private static Screen currentScreen;
-    private boolean clearOnRender = true;
     public static Game instance;
     private Crosshair crosshair;
     private InputMultiplexer inputMultiplexer;
+    private ScreenStack screenStack;
 
     @Override
     public void create() {
+        screenStack = new ScreenStack();
         ScreenUtility.initialise();
         Gdx.input.setInputProcessor(inputMultiplexer);
-        setCurrentScreen(new PongScreen());
+        screenStack.push(new PongScreen());
         crosshair = new Crosshair();
     }
 
     @Override
     public void render() {
-        if (clearOnRender) {
-            ScreenUtils.clear(Color.BLACK);
-        }
+        ScreenUtils.clear(Color.BLACK);
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             System.exit(0);
         }
-        currentScreen.render();
+        if (!screenStack.isEmpty()) {
+            screenStack.peek().render();
+        }
         crosshair.render();
     }
 
@@ -40,15 +40,10 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
         return instance;
     }
 
-    @Override
-    public Screen getCurrentScreen() {
-        return currentScreen;
-    }
 
     @Override
-    public void setCurrentScreen(Screen newScreen, boolean clearOnRender) {
-        this.clearOnRender = clearOnRender;
-        currentScreen = newScreen;
+    public ScreenStack getScreenStack() {
+        return screenStack;
     }
 
     @Override
