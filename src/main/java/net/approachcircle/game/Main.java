@@ -9,6 +9,6 @@ public class Main {
         config.setForegroundFPS(60);
         config.setMaximized(true);
         config.setTitle("pong");
-        new Lwjgl3Application(new Game(), config);
+        new Lwjgl3Application(Game.getInstance(), config);
     }
 }
