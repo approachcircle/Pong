@@ -27,4 +27,8 @@ public class ScreenStack {
     public boolean isEmpty() {
         return stack.isEmpty();
     }
+
+    public void clear() {
+        stack.clear();
+    }
 }
