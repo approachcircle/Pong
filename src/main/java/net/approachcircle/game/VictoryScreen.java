@@ -1,8 +1,6 @@
 package net.approachcircle.game;
 
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import net.approachcircle.game.backend.Screen;
-import net.approachcircle.game.backend.ScreenUtility;
 import net.approachcircle.game.backend.TextRenderable;
 
 public class VictoryScreen extends Screen {
