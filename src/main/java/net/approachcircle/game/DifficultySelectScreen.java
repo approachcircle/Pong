@@ -22,8 +22,6 @@ public class DifficultySelectScreen extends Screen {
         difficultyButtons = new ArrayList<>();
         for (Difficulty diff : Difficulty.values()) {
             Button button = new Button(diff.name(), true, (x, y, b) -> {
-                // pop this screen as it's not that "important" and will not be present in multiplayer
-                Game.getInstance().getScreenStack().pop();
                 Game.getInstance().getScreenStack().push(new PongScreen(diff));
             }, Game.getInstance());
             button.center();
