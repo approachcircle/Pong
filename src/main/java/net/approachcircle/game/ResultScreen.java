@@ -5,10 +5,7 @@ import net.approachcircle.game.backend.Button;
 import net.approachcircle.game.backend.Screen;
 import net.approachcircle.game.backend.TextRenderable;
 
-import java.util.Objects;
-
 public class ResultScreen extends Screen {
-    private final Outcome outcome;
     private final TextRenderable text;
     private final int text_padding = 50;
     private final int retry_button_padding = 50;
@@ -16,7 +13,6 @@ public class ResultScreen extends Screen {
     private final Button retryButton;
     private final Button mainMenuButton;
     public ResultScreen(Outcome outcome) {
-        this.outcome = outcome;
         text = new TextRenderable("You " + outcome.name().toLowerCase() + "!", 1.5f);
         text.centerX();
         text.setY(Gdx.graphics.getHeight() - text_padding);
