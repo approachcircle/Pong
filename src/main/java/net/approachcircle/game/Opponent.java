@@ -35,15 +35,9 @@ public class Opponent extends Player {
 
     public void setDifficulty(Difficulty difficulty) {
         switch (difficulty) {
-            case Easy -> {
-                setSpeed(getSpeed() - 7);
-            }
-            case Normal -> {
-                setSpeed(getSpeed() - 4);
-            }
-            case Hard -> {
-                setSpeed(getSpeed());
-            }
+            case Easy -> setSpeed(getSpeed() - 7);
+            case Normal -> setSpeed(getSpeed() - 4);
+            case Hard -> setSpeed(getSpeed());
         }
     }
 }
