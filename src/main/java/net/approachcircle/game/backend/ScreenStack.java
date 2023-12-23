@@ -16,13 +16,13 @@ public class ScreenStack {
         }
         inputManager.clearInputProcessors();
         Screen previous = stack.pop();
-        String log = String.format("screen popped: render target: %s -> %s", previous, peek());
+        String log = String.format("screen popped: %s -> %s", previous, peek());
         System.out.println(log);
         return previous;
     }
 
     public void push(Screen screen) {
-        String log = String.format("screen pushed: render target: %s -> %s", peek(), screen);
+        String log = String.format("screen pushed: %s -> %s", peek(), screen);
         inputManager.clearInputProcessors();
         stack.push(screen);
         System.out.println(log);
