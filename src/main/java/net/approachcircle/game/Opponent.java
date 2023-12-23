@@ -20,9 +20,12 @@ public class Opponent extends Player {
 
     public void setDifficulty(Difficulty difficulty) {
         switch (difficulty) {
-            case Easy -> setSpeed(getSpeed() - 5);
-            case Normal -> setSpeed(getSpeed() - 2);
-            case Hard -> setSpeed(getSpeed() + 4);
+            case Easy -> setSpeed(getSpeed() - 3);
+            case Normal -> setSpeed(getSpeed() - 1);
+            case Hard -> setSpeed(getSpeed() + 3);
+            case Extreme -> setSpeed(getSpeed() + 7);
+            case Impossible -> setSpeed(getSpeed() + 10);
+            default -> throw new EnumConstantNotPresentException(Difficulty.class, difficulty.name());
         }
     }
 }
