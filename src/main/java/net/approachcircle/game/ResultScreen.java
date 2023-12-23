@@ -18,11 +18,12 @@ public class ResultScreen extends Screen {
         text.setY(Gdx.graphics.getHeight() - text_padding);
         retryButton = new Button("Retry", true, (x, y, b) -> {
             Game.getInstance().getScreenStack().pop();
-            Game.getInstance().getScreenStack().pop(); // ENSURE THIS ONLY POPS ONCE FOR MULTIPLAYER
+            Game.getInstance().getScreenStack().pop();
         }, Game.getInstance());
         retryButton.center();
         retryButton.setY(retryButton.getY() + retry_button_padding);
         mainMenuButton = new Button("Main menu", true, (x, y, b) -> {
+            Game.getInstance().getScreenStack().pop();
             Game.getInstance().getScreenStack().pop();
             Game.getInstance().getScreenStack().pop();
         }, Game.getInstance());

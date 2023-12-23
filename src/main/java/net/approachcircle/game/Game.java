@@ -13,7 +13,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
 
     @Override
     public void create() {
-        screenStack = new ScreenStack();
+        screenStack = new ScreenStack(this);
         ScreenUtility.initialise();
         Gdx.input.setInputProcessor(inputMultiplexer);
         screenStack.push(new MainMenuScreen());
@@ -58,5 +58,10 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     public void removeInputProcessor(InputProcessor processor) {
         inputMultiplexer.removeProcessor(processor);
         Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    @Override
+    public void clearInputProcessors() {
+        inputMultiplexer.clear();
     }
 }
