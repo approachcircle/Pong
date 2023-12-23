@@ -2,7 +2,6 @@ package net.approachcircle.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import net.approachcircle.game.backend.*;
 
 public class Ball extends ShapeRenderable implements Acceleratable, Transformable {

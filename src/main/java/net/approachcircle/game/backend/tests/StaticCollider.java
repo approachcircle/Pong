@@ -5,20 +5,16 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.approachcircle.game.backend.ShapeRenderable;
 import net.approachcircle.game.backend.Transformable;
 
-import java.util.StringJoiner;
-
 public class StaticCollider extends ShapeRenderable implements Transformable {
     private float x;
     private float y;
     private float width;
     private float height;
-    private String position;
     private final float distance = 400;
     public StaticCollider(String position) {
         if (!position.equalsIgnoreCase("left") && !position.equalsIgnoreCase("right")) {
             throw new IllegalArgumentException("static collider position is invalid");
         }
-        this.position = position;
         setWidth(20);
         setHeight(width * 8);
         center();

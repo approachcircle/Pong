@@ -13,13 +13,11 @@ public class Button implements Renderable, Transformable {
     private final ButtonClickListener listener;
     private InputAdapter inputProcessor;
     private final InputManager inputManager;
-    private final float scale;
 
     public Button(String text, boolean background, ButtonClickListener listener, InputManager inputManager, float scale) {
         this.background = background;
         this.listener = listener;
         this.inputManager = inputManager;
-        this.scale = scale;
         setX(0);
         setY(0);
         textRenderable = new TextRenderable(text, scale);
