@@ -101,17 +101,6 @@ public class PongScreen extends Screen {
         if (score.opponentWon()) {
             screenStack.push(new ResultScreen(Outcome.Lose, difficulty));
         }
-//        if (gameFinished()) {
-//            ball.center();
-//            player.centerY();
-//            opponent.centerY();
-//            score.reset();
-//            ball.resetSpeed();
-//        }
-    }
-
-    private boolean gameFinished() {
-        return score.playerWon() || score.opponentWon();
     }
 
     private void moveAIOpponent() {

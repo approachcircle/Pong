@@ -12,7 +12,6 @@ public class DifficultySelectScreen extends Screen {
     private final TextRenderable title;
     private final ArrayList<Button> difficultyButtons;
     private final int title_padding = 50;
-    private final int initial_padding = 25;
     private final int further_padding = 15;
 
     public DifficultySelectScreen() {

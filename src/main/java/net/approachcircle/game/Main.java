@@ -2,7 +2,6 @@ package net.approachcircle.game;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 
 public class Main {
     public static void main(String[] args) {
