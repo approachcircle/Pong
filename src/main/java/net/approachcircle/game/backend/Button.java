@@ -62,6 +62,7 @@ public class Button implements Renderable, Transformable {
 
     @Override
     public void render() {
+        updateInputProcessor();
         if (background) {
             buttonBackground.setX(getX());
             buttonBackground.setY(getY());
