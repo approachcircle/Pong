@@ -7,6 +7,8 @@ import net.approachcircle.game.backend.Screen;
 import net.approachcircle.game.backend.ScreenStack;
 import net.approachcircle.game.backend.Size;
 
+import java.util.Random;
+
 
 public class PongScreen extends Screen {
     private final Player player;
@@ -14,6 +16,7 @@ public class PongScreen extends Screen {
     private final Ball ball;
     private final Score score;
     private final ScreenStack screenStack;
+    private final Difficulty difficulty;
 
     public PongScreen(Difficulty difficulty) {
         this.screenStack = Game.getInstance().getScreenStack();
@@ -21,6 +24,16 @@ public class PongScreen extends Screen {
         opponent = new Opponent();
         opponent.setDifficulty(difficulty);
         ball = new Ball();
+        chooseRandomStartTrajectory();
+        switch (difficulty) {
+            case Easy -> ball.speedIncline += 0;
+            case Normal -> ball.speedIncline += 1;
+            case Hard -> ball.speedIncline += 1.25f;
+            case Extreme -> ball.speedIncline += 2.25f;
+            case Impossible -> ball.speedIncline += 4;
+            default -> throw new EnumConstantNotPresentException(Difficulty.class, difficulty.name());
+        }
+        this.difficulty = difficulty;
         score = new Score();
     }
 
@@ -83,17 +96,22 @@ public class PongScreen extends Screen {
         ball.render();
         score.render();
         if (score.playerWon()) {
-            screenStack.push(new ResultScreen(Outcome.Win));
+            screenStack.push(new ResultScreen(Outcome.Win, difficulty));
         }
         if (score.opponentWon()) {
-            screenStack.push(new ResultScreen(Outcome.Lose));
+            screenStack.push(new ResultScreen(Outcome.Lose, difficulty));
         }
-        if (gameFinished()) {
-            ball.center();
-            player.centerY();
-            opponent.centerY();
-            score.reset();
-        }
+//        if (gameFinished()) {
+//            ball.center();
+//            player.centerY();
+//            opponent.centerY();
+//            score.reset();
+//            ball.resetSpeed();
+//        }
+    }
+
+    private boolean gameFinished() {
+        return score.playerWon() || score.opponentWon();
     }
 
     private void moveAIOpponent() {
@@ -105,7 +123,15 @@ public class PongScreen extends Screen {
         }
     }
 
-    private boolean gameFinished() {
-        return score.playerWon() || score.opponentWon();
+    private void chooseRandomStartTrajectory() {
+        Random rng = new Random();
+        int result = rng.nextInt(2);
+        if (result == 1) {
+            ball.setDeltaX(-ball.getDeltaX());
+        }
+        result = rng.nextInt(2);
+        if (result == 1) {
+            ball.setDeltaY(-ball.getDeltaY());
+        }
     }
 }
