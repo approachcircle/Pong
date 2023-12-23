@@ -10,7 +10,7 @@ public class Ball extends ShapeRenderable implements Acceleratable, Transformabl
     private float radius;
     private float speed;
     public final float initialSpeed = 6;
-    public final float speedIncline = .75f;
+    public float speedIncline = .75f;
     private float deltaX = 1;
     private float deltaY = 1;
 
