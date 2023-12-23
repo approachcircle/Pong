@@ -1,5 +1,6 @@
-package net.approachcircle.game;
+package net.approachcircle.game.backend.tests;
 
+import net.approachcircle.game.Game;
 import net.approachcircle.game.backend.Button;
 import net.approachcircle.game.backend.Screen;
 
