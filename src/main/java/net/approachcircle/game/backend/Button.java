@@ -13,14 +13,16 @@ public class Button implements Renderable, Transformable {
     private final ButtonClickListener listener;
     private InputAdapter inputProcessor;
     private final InputManager inputManager;
+    private final float scale;
 
-    public Button(String text, boolean background, float x, float y, ButtonClickListener listener, InputManager inputManager) {
+    public Button(String text, boolean background, ButtonClickListener listener, InputManager inputManager, float scale) {
         this.background = background;
         this.listener = listener;
         this.inputManager = inputManager;
-        setX(x);
-        setY(y);
-        textRenderable = new TextRenderable(text, 0.75f);
+        this.scale = scale;
+        setX(0);
+        setY(0);
+        textRenderable = new TextRenderable(text, scale);
         textRenderable.setX(getX());
         textRenderable.setY(getY());
         if (background) {
@@ -29,14 +31,18 @@ public class Button implements Renderable, Transformable {
             setHeight(textRenderable.getHeight() + padding + textRenderable.getScale());
         }
     }
-
     public Button(String text, boolean background) {
-        this(text, background, 0, 0, null, null);
+        this(text, background, null, null);
+    }
+    public Button(String text, boolean background, float scale) {
+        this(text, background, null, null, scale);
     }
 
     public Button(String text, boolean background, ButtonClickListener listener, InputManager inputManager) {
-        this(text, background, 0, 0, listener, inputManager);
+        this(text, background, listener, inputManager, 0.75f);
     }
+
+
 
     private void updateInputProcessor() {
         // no input manager or listener provided, don't bother setting input processor
