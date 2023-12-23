@@ -24,7 +24,7 @@ public class Opponent extends Player {
             case Normal -> setSpeed(getSpeed() - 1);
             case Hard -> setSpeed(getSpeed() + 3);
             case Extreme -> setSpeed(getSpeed() + 7);
-            case Impossible -> setSpeed(getSpeed() + 10);
+            case Impossible -> setSpeed(getSpeed() + 11);
             default -> throw new EnumConstantNotPresentException(Difficulty.class, difficulty.name());
         }
     }
