@@ -10,6 +10,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     private Crosshair crosshair;
     private InputMultiplexer inputMultiplexer;
     private ScreenStack screenStack;
+    private boolean suspended = false;
 
     @Override
     public void create() {
@@ -22,11 +23,13 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
 
     @Override
     public void render() {
-        ScreenUtils.clear(Color.BLACK);
+        if (!suspended) {
+            ScreenUtils.clear(Color.BLACK);
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
-        if (!screenStack.isEmpty()) {
+        if (!screenStack.isEmpty() && !suspended) {
             screenStack.peek().render();
         }
         crosshair.render();
@@ -63,5 +66,9 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     @Override
     public void clearInputProcessors() {
         inputMultiplexer.clear();
+    }
+
+    public void toggleSuspend() {
+        suspended = !suspended;
     }
 }
