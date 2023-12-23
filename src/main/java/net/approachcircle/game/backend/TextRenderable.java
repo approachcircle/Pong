@@ -1,5 +1,7 @@
 package net.approachcircle.game.backend;
 
+import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -20,7 +22,8 @@ public class TextRenderable implements Transformable, Renderable {
     private Color color;
 
     public TextRenderable(String text, float scale, Color color) {
-        font = new BitmapFont(new FileHandle("src/main/resources/yu_gothic_ui.fnt"));
+        FileHandle handle = Gdx.files.getFileHandle("yu_gothic_ui.fnt", Files.FileType.Classpath);
+        font = new BitmapFont(handle);
         this.x = 0;
         this.y = 0;
         this.scale = scale;
