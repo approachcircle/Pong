@@ -54,7 +54,7 @@ public class Button implements Renderable, Transformable {
             @Override
             public boolean touchUp(int x, int y, int pointer, int button) {
                 // cursor coordinates must be subtracted from screen height to get absolute coordinates
-                if (x >= getX() && x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() -  y <= getY() + getHeight()) {
+                if (Gdx.graphics.getWidth() - x >= getX() && Gdx.graphics.getWidth() - x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() - y <= getY() + getHeight()) {
                     listener.onClick(x, Gdx.graphics.getHeight() - y, button);
                     return true;
                 }
