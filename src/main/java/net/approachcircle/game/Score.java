@@ -11,20 +11,12 @@ public class Score implements Renderable {
     // private final float SCALE = 4;
     private final int TOP_PADDING = 75;
     private final TextRenderable renderable;
-    private static Score instance;
     private final int WIN_CONDITION = 3;
 
-    private Score() {
+    public Score() {
         renderable = new TextRenderable(SCALE);
         renderable.centerX(true);
         renderable.setY(Gdx.graphics.getHeight() - TOP_PADDING);
-    }
-
-    public static Score getInstance() {
-        if (instance == null) {
-            instance = new Score();
-        }
-        return instance;
     }
 
     @Override

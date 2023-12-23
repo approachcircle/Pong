@@ -15,21 +15,14 @@ public class Player extends ShapeRenderable implements Transformable, Accelerata
     protected float speed;
     protected float deltaX = 1;
     protected float deltaY = 1;
-    private static Player instance;
+    protected final float padding = 100;
 
-    protected Player() {
-        setWidth(10);
-        setHeight((float) Gdx.graphics.getHeight() / 8);
-        setX(0);
+    public Player() {
+        setWidth(20);
+        setHeight(width * 8);
+        setX(padding);
         setY(ScreenUtility.getScreenCenter().y - (getHeight() / 2));
         setSpeed(15);
-    }
-
-    public static Player getInstance() {
-        if (instance == null) {
-            instance = new Player();
-        }
-        return instance;
     }
 
     public void render() {
