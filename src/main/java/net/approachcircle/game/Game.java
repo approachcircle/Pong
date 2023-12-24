@@ -14,6 +14,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
 
     @Override
     public void create() {
+        inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
         ScreenUtility.initialise();
         Gdx.input.setInputProcessor(inputMultiplexer);
