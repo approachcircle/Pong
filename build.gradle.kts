@@ -16,6 +16,7 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx:1.12.1")
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:1.12.1")
     // implementation("com.badlogicgames.gdx:gdx-platform:1.12.1")
+    implementation("io.socket:socket.io-client:2.1.0")
     implementation("com.badlogicgames.gdx:gdx-platform:1.12.1:natives-desktop")
     implementation("com.badlogicgames.gdx-controllers:gdx-controllers-desktop:2.2.3")
 }
