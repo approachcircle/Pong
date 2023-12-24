@@ -40,8 +40,6 @@ public class Button implements Renderable, Transformable {
         this(text, background, listener, inputManager, 0.75f);
     }
 
-
-
     private void updateInputProcessor() {
         // no input manager or listener provided, don't bother setting input processor
         if (inputManager == null || listener == null) {
@@ -54,7 +52,7 @@ public class Button implements Renderable, Transformable {
             @Override
             public boolean touchUp(int x, int y, int pointer, int button) {
                 // cursor coordinates must be subtracted from screen height to get absolute coordinates
-                if (Gdx.graphics.getWidth() - x >= getX() && Gdx.graphics.getWidth() - x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() - y <= getY() + getHeight()) {
+                if (x >= getX() && x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() - y <= getY() + getHeight()) {
                     listener.onClick(x, Gdx.graphics.getHeight() - y, button);
                     return true;
                 }
