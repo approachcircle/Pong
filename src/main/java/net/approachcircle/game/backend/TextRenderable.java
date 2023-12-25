@@ -18,8 +18,9 @@ public class TextRenderable implements Transformable, Renderable {
     private float y;
     private boolean recalculateCenterX = false;
     private boolean recalculateCenterY = false;
-    private final float scale;
+    private float scale;
     private Color color;
+    private String text;
 
     public TextRenderable(String text, float scale, Color color) {
         FileHandle handle = Gdx.files.getFileHandle("yu_gothic_ui.fnt", Files.FileType.Classpath);
@@ -27,9 +28,10 @@ public class TextRenderable implements Transformable, Renderable {
         this.x = 0;
         this.y = 0;
         this.scale = scale;
-        setColor(color);
         font.getData().setScale(scale);
+        this.text = text;
         setText(text);
+        setColor(color);
     }
 
     public TextRenderable(String text, float scale) {
@@ -127,15 +129,22 @@ public class TextRenderable implements Transformable, Renderable {
     }
 
     public String getText() {
-        return glyphLayout.toString();
+        return text;
     }
 
     public void setText(String text) {
-        glyphLayout = new GlyphLayout(font, text);
+        this.text = text;
+        updateGlyphLayout();
     }
 
     public float getScale() {
         return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+        font.getData().setScale(scale);
+        updateGlyphLayout();
     }
 
     @Override
@@ -158,9 +167,14 @@ public class TextRenderable implements Transformable, Renderable {
         throw new RuntimeException("though this is transformable, the height may not be set manually, only scaled");
     }
 
+    private void updateGlyphLayout() {
+        glyphLayout = new GlyphLayout(font, text);
+    }
+
     public void setColor(Color color) {
         this.color = color;
         font.setColor(color);
+        updateGlyphLayout();
     }
 
     public Color getColor() {
