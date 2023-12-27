@@ -9,8 +9,27 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * <p>
+ *     this object is responsible for holding a renderable {@code String}
+ *     with an adjustable scale and color.
+ * </p>
+ * <p>
+ *     a maximum width can also be set
+ *     where the text will be scaled down until it fits within this width
+ *     if it finds that it is larger than the maximum width.
+ * </p>
+ * <strong>
+ *     please not that this object's origin is in the <i>top-left</i>,
+ *     and not the bottom-left like most {@code Renderable}s.
+ * </strong>
+ * <p>
+ *     this means that a {@code TextRenderable} drawn at (0, 0) will not be
+ *     visible, compared to a {@code TransformableRect} at (0, 0) which is
+ *     entirely visible.
+ * </p>
+ */
 public class TextRenderable implements Transformable, Renderable {
-    // DISPOSABLE
     private final BitmapFont font;
     private final Batch batch = new SpriteBatch();
     private GlyphLayout glyphLayout;
@@ -187,21 +206,34 @@ public class TextRenderable implements Transformable, Renderable {
         updateGlyphLayout();
     }
 
+    /**
+     * sets the maximum width this text can reach before it begins
+     * to auto-scale down to keep its width below it.
+     * useful for keeping text from spilling over the edge of other
+     * {@code Transformable}s.
+     * @param maxWidth the maximum width to constrain this text to
+     */
     public void setMaxWidth(float maxWidth) {
         this.maxWidth = maxWidth;
+        scaleToMaxWidth();
     }
 
     private void scaleToMaxWidth() {
-        // multiply padding by either side to calculate gap
-        // either side
         while (getWidth() + autoScalePadding > maxWidth) {
             setScale(getScale() - 0.001f);
         }
     }
 
+    /**
+     *  used in conjunction with the {@code setMaxWidth()} method. this method
+     *  will add padding to the distance away from the max width value.
+     * @param padding the number of pixels to constrain this text away from the max width
+     */
     public void setAutoScalePadding(int padding) {
         autoScalePadding = padding;
-        scaleToMaxWidth();
+        if (maxWidth > 0) {
+            scaleToMaxWidth();
+        }
     }
 
     public float getScale() {
