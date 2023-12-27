@@ -26,7 +26,6 @@ public class DifficultySelectScreen extends Screen {
             button.centerX();
             if (difficultyButtons.isEmpty()) {
                 button.setY((title.getY() - title.getHeight()) - button.getHeight() - title_padding);
-                System.out.println(title.getY() - title.getHeight());
             } else {
                 Button previous = difficultyButtons.get(difficultyButtons.size() - 1);
                 button.setY(previous.getY() - (further_padding + previous.getHeight()));
