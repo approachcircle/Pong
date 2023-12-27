@@ -16,17 +16,22 @@ public class TextRenderable implements Transformable, Renderable {
     private GlyphLayout glyphLayout;
     private float x;
     private float y;
+    private float maxWidth;
     private boolean recalculateCenterX = false;
     private boolean recalculateCenterY = false;
+    private Transformable recalculateCenterXRelative;
+    private Transformable recalculateCenterYRelative;
     private float scale;
     private Color color;
     private String text;
+    private int autoScalePadding = 0;
 
     public TextRenderable(String text, float scale, Color color) {
         FileHandle handle = Gdx.files.getFileHandle("yu_gothic_ui.fnt", Files.FileType.Classpath);
         font = new BitmapFont(handle);
         this.x = 0;
         this.y = 0;
+        this.maxWidth = 0;
         this.scale = scale;
         font.getData().setScale(scale);
         this.text = text;
@@ -69,6 +74,15 @@ public class TextRenderable implements Transformable, Renderable {
         if (recalculateCenterY) {
             centerY(true);
         }
+        if (maxWidth > 0) {
+            scaleToMaxWidth();
+        }
+        if (recalculateCenterXRelative != null) {
+            centerXRelativeTo(recalculateCenterXRelative, true);
+        }
+        if (recalculateCenterYRelative != null) {
+            centerYRelativeTo(recalculateCenterYRelative, true);
+        }
         batch.begin();
         font.draw(batch, glyphLayout, getX(), getY());
         batch.end();
@@ -87,12 +101,14 @@ public class TextRenderable implements Transformable, Renderable {
     @Override
     public void setX(float x) {
         recalculateCenterX = false;
+        recalculateCenterXRelative = null;
         this.x = x;
     }
 
     @Override
     public void setY(float y) {
         recalculateCenterY = false;
+        recalculateCenterYRelative = null;
         this.y = y;
     }
 
@@ -128,6 +144,36 @@ public class TextRenderable implements Transformable, Renderable {
         y = ScreenUtility.getScreenCenter().y + (glyphLayout.height / 2) + scale;
     }
 
+    public void centerXRelativeTo(Transformable transformable, boolean recalculate) {
+        recalculateCenterXRelative = transformable;
+        x = (transformable.getX() + (transformable.getWidth() / 2)) - getWidth() / 2;
+    }
+
+    public void centerXRelativeTo(Transformable transformable) {
+        centerXRelativeTo(transformable, false);
+    }
+
+    public void centerYRelativeTo(Transformable transformable, boolean recalculate) {
+        recalculateCenterYRelative = transformable;
+        y = transformable.getY() + (transformable.getHeight() + getHeight()) / 2;
+    }
+
+    @Override
+    public void centerYRelativeTo(Transformable transformable) {
+        centerYRelativeTo(transformable, false);
+    }
+
+    @Override
+    public void centerRelativeTo(Transformable transformable) {
+        centerXRelativeTo(transformable);
+        centerYRelativeTo(transformable);
+    }
+
+    public void centerRelativeTo(Transformable transformable, boolean recalculate) {
+        centerXRelativeTo(transformable, recalculate);
+        centerYRelativeTo(transformable, recalculate);
+    }
+
     public String getText() {
         return text;
     }
@@ -135,6 +181,23 @@ public class TextRenderable implements Transformable, Renderable {
     public void setText(String text) {
         this.text = text;
         updateGlyphLayout();
+    }
+
+    public void setMaxWidth(float maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    private void scaleToMaxWidth() {
+        // multiply padding by either side to calculate gap
+        // either side
+        while (getWidth() + autoScalePadding > maxWidth) {
+            setScale(getScale() - 0.001f);
+        }
+    }
+
+    public void setAutoScalePadding(int padding) {
+        autoScalePadding = padding;
+        scaleToMaxWidth();
     }
 
     public float getScale() {
