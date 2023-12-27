@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import net.approachcircle.game.Game;
 
+import java.util.Objects;
+
 public class DialogBox implements Renderable, Transformable {
     private float x;
     private float y;
@@ -31,10 +33,9 @@ public class DialogBox implements Renderable, Transformable {
                     toggle();
                 }
             };
-        } else if (responseListener == null) {
-            this.responseListener = new DialogListenerAdapter() {};
         } else {
-            this.responseListener = responseListener;
+            this.responseListener = Objects.requireNonNullElseGet(responseListener, () -> new DialogListenerAdapter() {
+            });
         }
         this.type = type;
         this.prompt = new TextRenderable(prompt, 0.75f);
