@@ -145,7 +145,9 @@ public class TextRenderable implements Transformable, Renderable {
     }
 
     public void centerXRelativeTo(Transformable transformable, boolean recalculate) {
-        recalculateCenterXRelative = transformable;
+        if (recalculate) {
+            recalculateCenterXRelative = transformable;
+        }
         x = (transformable.getX() + (transformable.getWidth() / 2)) - getWidth() / 2;
     }
 
@@ -154,7 +156,9 @@ public class TextRenderable implements Transformable, Renderable {
     }
 
     public void centerYRelativeTo(Transformable transformable, boolean recalculate) {
-        recalculateCenterYRelative = transformable;
+        if (recalculate) {
+            recalculateCenterYRelative = transformable;
+        }
         y = transformable.getY() + (transformable.getHeight() + getHeight()) / 2;
     }
 
