@@ -8,7 +8,7 @@ public class TransformableRect extends ShapeRenderable implements Transformable 
     private float y;
     private float width;
     private float height;
-    private Color color;
+    private final Color color;
 
     public TransformableRect(Color color) {
         this.color = color;

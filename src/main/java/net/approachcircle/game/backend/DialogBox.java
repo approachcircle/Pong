@@ -8,7 +8,7 @@ public class DialogBox implements Renderable, Transformable {
     private float y;
     private float width;
     private float height;
-    private TransformableRect background;
+    private final TransformableRect background;
     TextRenderable prompt;
     DialogType type;
 
