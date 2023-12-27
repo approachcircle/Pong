@@ -23,10 +23,10 @@ public class DifficultySelectScreen extends Screen {
             Button button = new Button(diff.name(), true, (x, y, b) -> {
                 Game.getInstance().getScreenStack().push(new PongScreen(diff));
             }, Game.getInstance(), 0.5f);
-            button.center();
+            button.centerX();
             if (difficultyButtons.isEmpty()) {
-                // button.setY(button.getY() - initial_padding);
-                button.center();
+                button.setY((title.getY() - title.getHeight()) - button.getHeight() - title_padding);
+                System.out.println(title.getY() - title.getHeight());
             } else {
                 Button previous = difficultyButtons.get(difficultyButtons.size() - 1);
                 button.setY(previous.getY() - (further_padding + previous.getHeight()));
