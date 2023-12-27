@@ -2,12 +2,13 @@ package net.approachcircle.game.backend;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Color;
 
 public class Button implements Renderable, Transformable {
     private float x;
     private float y;
     private final boolean background;
-    private ButtonBackground buttonBackground;
+    private TransformableRect buttonBackground;
     private final TextRenderable textRenderable;
     private final float padding = 50;
     private final ButtonClickListener listener;
@@ -23,8 +24,9 @@ public class Button implements Renderable, Transformable {
         textRenderable = new TextRenderable(text, scale);
         textRenderable.setX(getX());
         textRenderable.setY(getY());
+        textRenderable.setColor(Color.WHITE);
         if (background) {
-            buttonBackground = new ButtonBackground();
+            buttonBackground = new TransformableRect(Color.GRAY);
             setWidth(textRenderable.getWidth() - textRenderable.getScale() + padding);
             setHeight(textRenderable.getHeight() + padding + textRenderable.getScale());
         }
