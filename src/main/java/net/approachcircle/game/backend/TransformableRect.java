@@ -3,18 +3,29 @@ package net.approachcircle.game.backend;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class ButtonBackground extends ShapeRenderable implements Transformable {
+public class TransformableRect extends ShapeRenderable implements Transformable {
     private float x;
     private float y;
     private float width;
     private float height;
+    private Color color;
 
-    protected ButtonBackground() {}
+    public TransformableRect(Color color) {
+        this.color = color;
+        setX(0);
+        setY(0);
+        setWidth(15);
+        setHeight(15);
+    }
+
+    public TransformableRect() {
+        this(Color.WHITE);
+    }
 
     @Override
     public void render() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.setColor(color);
         shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
         shapeRenderer.end();
     }
