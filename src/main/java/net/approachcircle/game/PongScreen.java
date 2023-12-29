@@ -1,6 +1,7 @@
 package net.approachcircle.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import net.approachcircle.game.backend.CollisionUtility;
 import net.approachcircle.game.backend.Screen;
@@ -21,6 +22,10 @@ public class PongScreen extends Screen {
     public PongScreen(Difficulty difficulty) {
         this.screenStack = Game.getInstance().getScreenStack();
         player = new Player();
+        // TODO: here we should pass an argument to the constructor
+        // TODO: of Opponent letting it know if this is a multiplayer
+        // TODO: game or a single-player game. exceptions should be thrown
+        // TODO: if methods are called in the wrong game mode context
         opponent = new Opponent();
         opponent.setDifficulty(difficulty);
         ball = new Ball();
@@ -100,6 +105,9 @@ public class PongScreen extends Screen {
         }
         if (score.opponentWon()) {
             screenStack.push(new ResultScreen(Outcome.Lose, difficulty));
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            screenStack.push(new PauseScreen());
         }
     }
 
