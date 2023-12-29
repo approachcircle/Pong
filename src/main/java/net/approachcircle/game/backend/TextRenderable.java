@@ -19,10 +19,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *     where the text will be scaled down until it fits within this width
  *     if it finds that it is larger than the maximum width.
  * </p>
- * <strong>
- *     please not that this object's origin is in the <i>top-left</i>,
+ * <b>
+ *     please note that this object's origin is in the <i>top-left</i>,
  *     and not the bottom-left like most {@code Renderable}s.
- * </strong>
+ * </b>
  * <p>
  *     this means that a {@code TextRenderable} drawn at (0, 0) will not be
  *     visible, compared to a {@code TransformableRect} at (0, 0) which is
