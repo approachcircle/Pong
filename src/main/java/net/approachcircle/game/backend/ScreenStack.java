@@ -21,6 +21,35 @@ public class ScreenStack {
         return previous;
     }
 
+    public void popTo(Class<? extends Screen> screen) {
+        if (!containsTypeOf(screen)) {
+            throw new IllegalStateException(String.format("screen '%s' not present in screen stack.", screen));
+        }
+        while (!isSameType(peek(), screen)) {
+            pop();
+        }
+    }
+
+    public boolean containsInstanceOf(Screen screen) {
+        return stack.contains(screen);
+    }
+
+    public boolean containsTypeOf(Class<? extends Screen> screen) {
+        System.out.printf("target: %s%n", screen);
+        for (Screen s : stack) {
+            // this check is naive, but should do the trick
+            // provided no two screens have the same class name
+            if (isSameType(s, screen)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isSameType(Screen first, Class<? extends Screen> second) {
+        return first.getClass() == second;
+    }
+
     public void push(Screen screen) {
         String log = String.format("screen pushed: %s -> %s", peek(), screen);
         inputManager.clearInputProcessors();
