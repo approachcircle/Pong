@@ -17,16 +17,13 @@ public class ResultScreen extends Screen {
         text.centerX();
         text.setY(Gdx.graphics.getHeight() - text_padding);
         retryButton = new Button("Retry", true, (x, y, b) -> {
-            Game.getInstance().getScreenStack().pop();
-            Game.getInstance().getScreenStack().pop();
+            Game.getInstance().getScreenStack().popTo(DifficultySelectScreen.class);
             Game.getInstance().getScreenStack().push(new PongScreen(lastDifficulty));
         }, Game.getInstance());
         retryButton.center();
         retryButton.setY(retryButton.getY() + retry_button_padding);
         mainMenuButton = new Button("Main menu", true, (x, y, b) -> {
-            Game.getInstance().getScreenStack().pop();
-            Game.getInstance().getScreenStack().pop();
-            Game.getInstance().getScreenStack().pop();
+            Game.getInstance().getScreenStack().popTo(MainMenuScreen.class);
         }, Game.getInstance());
         mainMenuButton.center();
         mainMenuButton.setY(mainMenuButton.getY() - (retry_button_padding + mm_button_padding));
