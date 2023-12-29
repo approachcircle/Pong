@@ -27,7 +27,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
         if (!suspended) {
             ScreenUtils.clear(Color.BLACK);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE) && getScreenStack().peek() instanceof MainMenuScreen) {
             Gdx.app.exit();
         }
         if (!screenStack.isEmpty() && !suspended) {
