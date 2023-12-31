@@ -35,7 +35,6 @@ public class ScreenStack {
     }
 
     public boolean containsTypeOf(Class<? extends Screen> screen) {
-        System.out.printf("target: %s%n", screen);
         for (Screen s : stack) {
             // this check is naive, but should do the trick
             // provided no two screens have the same class name
