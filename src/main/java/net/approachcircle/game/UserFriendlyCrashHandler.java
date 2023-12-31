@@ -16,6 +16,7 @@ public class UserFriendlyCrashHandler {
         frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         populateFrame();
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
@@ -24,7 +25,7 @@ public class UserFriendlyCrashHandler {
         JLabel icon = new JLabel(new ImageIcon(getIconBytes()));
         JLabel heading = new JLabel("an error occurred and pong had to close! :(");
         heading.setFont(heading.getFont().deriveFont(Collections.singletonMap(TextAttribute.SIZE, 18)));
-        JLabel error = new JLabel("<html><body width=385>" + exception + "</body></html>");
+        JLabel error = new JLabel("<html><style>body {color: red;}</style><body width=385>" + exception + "</body></html>");
         error.setFont(error.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_LIGHT)));
         JButton reveal = new JButton("click to reveal error information");
         reveal.addActionListener(event -> error.setVisible(true));
@@ -48,7 +49,7 @@ public class UserFriendlyCrashHandler {
     }
 
     private static byte[] getIconBytes() {
-        try (InputStream stream = Main.class.getClassLoader().getResourceAsStream("crash-icon.png")) {
+        try (InputStream stream = Main.class.getClassLoader().getResourceAsStream("crash-icon-2.png")) {
             if (stream == null) {
                 throw new RuntimeException("stream is null");
             }
