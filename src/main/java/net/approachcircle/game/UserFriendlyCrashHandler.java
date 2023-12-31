@@ -27,9 +27,7 @@ public class UserFriendlyCrashHandler {
         JLabel error = new JLabel("<html><body width=385>" + exception + "</body></html>");
         error.setFont(error.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_LIGHT)));
         JButton reveal = new JButton("click to reveal error information");
-        reveal.addActionListener(event -> {
-            error.setVisible(true);
-        });
+        reveal.addActionListener(event -> error.setVisible(true));
         layout.putConstraint(SpringLayout.WEST, icon, PADDING, SpringLayout.WEST, frame);
         layout.putConstraint(SpringLayout.NORTH, icon, PADDING, SpringLayout.NORTH, frame);
         layout.putConstraint(SpringLayout.WEST, heading, PADDING, SpringLayout.WEST, frame);
