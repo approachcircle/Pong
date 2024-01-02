@@ -3,7 +3,7 @@ package net.approachcircle.game;
 import com.badlogic.gdx.Gdx;
 import net.approachcircle.game.backend.*;
 
-public class MainMenuScreen extends Screen {
+public class MainMenuScreen extends Screen implements CloseOnEscape {
     private final TextRenderable title;
     private final Button singleplayerButton;
     private final Button multiplayerButton;
