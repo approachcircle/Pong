@@ -3,10 +3,10 @@ package net.approachcircle.game;
 import meteordevelopment.discordipc.DiscordIPC;
 import meteordevelopment.discordipc.RichPresence;
 
-public class DiscordPrescence {
+public class DiscordPresence {
     private final long applicationID = 1192161452287590420L;
     private final RichPresence rpc;
-    public DiscordPrescence() {
+    public DiscordPresence() {
         rpc = new RichPresence();
     }
 
