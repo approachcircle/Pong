@@ -5,4 +5,7 @@ public abstract class Screen implements Renderable {
     public String toString() {
         return this.getClass().getSimpleName();
     }
+    public EscapeBehaviour getEscapeBehaviour() {
+        return EscapeBehaviour.Other;
+    }
 }

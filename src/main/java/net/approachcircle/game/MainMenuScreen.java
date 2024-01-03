@@ -5,7 +5,7 @@ import net.approachcircle.game.backend.*;
 
 import java.util.Locale;
 
-public class MainMenuScreen extends Screen implements CloseOnEscape {
+public class MainMenuScreen extends Screen {
     private final TextRenderable title;
     private final Button singleplayerButton;
     private final Button multiplayerButton;
@@ -40,6 +40,12 @@ public class MainMenuScreen extends Screen implements CloseOnEscape {
             wrongLayout.toggle();
         }
     }
+
+    @Override
+    public EscapeBehaviour getEscapeBehaviour() {
+        return EscapeBehaviour.Exit;
+    }
+
     @Override
     public void render() {
         title.render();

@@ -1,15 +1,12 @@
 package net.approachcircle.game;
 
 import com.badlogic.gdx.Gdx;
-import net.approachcircle.game.backend.Button;
-import net.approachcircle.game.backend.DefaultTextScaling;
-import net.approachcircle.game.backend.Screen;
-import net.approachcircle.game.backend.TextRenderable;
+import net.approachcircle.game.backend.*;
 
 import java.util.ArrayList;
 
 
-public class DifficultySelectScreen extends Screen implements CloseOnEscape {
+public class DifficultySelectScreen extends Screen {
     private final TextRenderable title;
     private final ArrayList<Button> difficultyButtons;
     private final int title_padding = 50;
@@ -33,6 +30,11 @@ public class DifficultySelectScreen extends Screen implements CloseOnEscape {
             }
             difficultyButtons.add(button);
         }
+    }
+
+    @Override
+    public EscapeBehaviour getEscapeBehaviour() {
+        return EscapeBehaviour.Pop;
     }
 
     @Override
