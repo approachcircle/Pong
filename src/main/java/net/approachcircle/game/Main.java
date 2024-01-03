@@ -10,7 +10,6 @@ public class Main {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setForegroundFPS(60);
         config.setMaximized(true);
-        // config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
         config.setTitle("Pong");
         config.setWindowIcon(Files.FileType.Classpath, "app-icon.png");
         try {
