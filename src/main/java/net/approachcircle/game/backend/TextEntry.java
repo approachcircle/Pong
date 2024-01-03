@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.Color;
 public class TextEntry implements Renderable, Transformable {
     private float x;
     private float y;
-    private float width;
-    private float height;
     private final TransformableRect background;
     private final TextRenderable text;
     // calculate position of caret with text.getX() + text.getWidth()
