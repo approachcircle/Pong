@@ -56,6 +56,9 @@ public class Button implements Renderable, Transformable {
                 // cursor coordinates must be subtracted from screen height to get absolute coordinates
                 if (x >= getX() && x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() - y <= getY() + getHeight()) {
                     listener.onClick(x, Gdx.graphics.getHeight() - y, button);
+                    // after a click, remove the processor unless specifically instructed
+                    // to re-add it on the next frame.
+                    inputManager.removeInputProcessor(inputProcessor);
                     return true;
                 }
                 return false;
