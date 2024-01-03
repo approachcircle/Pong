@@ -1,4 +1,4 @@
-package net.approachcircle.game.backend;
+package net.approachcircle.game;
 
 import meteordevelopment.discordipc.DiscordIPC;
 import meteordevelopment.discordipc.RichPresence;
