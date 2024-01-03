@@ -2,7 +2,6 @@ package net.approachcircle.game.backend;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import net.approachcircle.game.Game;
 
 import java.util.Objects;
 
