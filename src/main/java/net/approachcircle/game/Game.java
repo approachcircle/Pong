@@ -52,7 +52,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
         } else if (screenStack.peek() instanceof ResultScreen) {
             return "Finished a game";
         }
-        return screenStack.peek().toString();
+        return "In the " + screenStack.peek().toString();
     }
 
     @Override
