@@ -46,7 +46,8 @@ public class TextRenderable implements Transformable, Renderable {
     private int autoScalePadding = 0;
 
     public TextRenderable(String text, float scale, Color color) {
-        FileHandle handle = Gdx.files.getFileHandle("yu_gothic_ui.fnt", Files.FileType.Classpath);
+        // FileHandle handle = Gdx.files.getFileHandle("yu_gothic_ui.fnt", Files.FileType.Classpath);
+        FileHandle handle = Gdx.files.getFileHandle("ubuntu.fnt", Files.FileType.Classpath);
         font = new BitmapFont(handle);
         this.x = 0;
         this.y = 0;
