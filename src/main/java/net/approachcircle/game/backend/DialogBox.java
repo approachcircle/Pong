@@ -40,7 +40,7 @@ public class DialogBox implements Renderable, Transformable {
         this.type = type;
         this.prompt = new TextRenderable(prompt, 0.75f);
         this.prompt.centerRelativeTo(this, true);
-        this.prompt.setY(this.prompt.getY() + (getHeight() / 3));
+        this.prompt.setY((this.prompt.getY() + (getHeight() / 3)) - this.prompt.getHeight() / 2);
         this.prompt.setMaxWidth(getWidth());
         // multiplying by 2 will set a gap of 50 pixels each
         // side of the prompt.
@@ -57,19 +57,19 @@ public class DialogBox implements Renderable, Transformable {
             case Information -> {
                 ok = new Button("OK", true, (x, y, b) -> {
                     responseListener.onOk();
-                }, Game.getInstance(), prompt.getScale());
+                }, Game.getInstance(), 1);
                 ok.centerXRelativeTo(this);
                 ok.setY(getY() + button_padding);
             }
             case Question -> {
                 yes = new Button("Yes", true, (x, y, b) -> {
                     responseListener.onYes();
-                }, Game.getInstance(), prompt.getScale());
+                }, Game.getInstance(), 1);
                 yes.setY(getY() + button_padding);
                 yes.setX(getX() + button_padding);
                 no = new Button("No", true, (x, y, b) -> {
                     responseListener.onNo();
-                }, Game.getInstance(), prompt.getScale());
+                }, Game.getInstance(), 1);
                 no.setY(getY() + button_padding);
                 no.setX(getX() + getWidth() - button_padding - no.getWidth());
             }
