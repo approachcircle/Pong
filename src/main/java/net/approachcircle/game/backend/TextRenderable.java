@@ -64,10 +64,10 @@ public class TextRenderable implements Transformable, Renderable {
     }
 
     public TextRenderable(String text, Color color) {
-        this(text, 1, color);
+        this(text, DefaultTextScaling.SUBTITLE, color);
     }
     public TextRenderable(String text) {
-        this(text, 1, Color.WHITE);
+        this(text, DefaultTextScaling.SUBTITLE, Color.WHITE);
     }
 
     public TextRenderable(float scale, Color color) {
@@ -79,11 +79,11 @@ public class TextRenderable implements Transformable, Renderable {
     }
 
     public TextRenderable(Color color) {
-        this("", 1, color);
+        this("", 0.5f, color);
     }
 
     public TextRenderable() {
-        this("", 1, Color.WHITE);
+        this("", 0.5f, Color.WHITE);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class MainMenuScreen extends Screen implements CloseOnEscape {
     public MainMenuScreen() {
         comingSoon = new DialogBox(DialogType.Information, "coming soon!", Game.getInstance());
         wrongLayout = new DialogBox(DialogType.Information, wrongLayoutMessage.toString(), Game.getInstance());
-        title = new TextRenderable("Pong", 1.5f);
+        title = new TextRenderable("Pong", DefaultTextScaling.TITLE);
         title.centerX();
         title.setY(Gdx.graphics.getHeight() - title_padding);
         singleplayerButton = new Button("Singleplayer", true, (x, y, b) -> {

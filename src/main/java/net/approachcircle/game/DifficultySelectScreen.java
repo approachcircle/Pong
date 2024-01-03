@@ -2,6 +2,7 @@ package net.approachcircle.game;
 
 import com.badlogic.gdx.Gdx;
 import net.approachcircle.game.backend.Button;
+import net.approachcircle.game.backend.DefaultTextScaling;
 import net.approachcircle.game.backend.Screen;
 import net.approachcircle.game.backend.TextRenderable;
 
@@ -15,14 +16,14 @@ public class DifficultySelectScreen extends Screen implements CloseOnEscape {
     private final int further_padding = 15;
 
     public DifficultySelectScreen() {
-        title = new TextRenderable("Select difficulty:", 0.75f);
+        title = new TextRenderable("Select difficulty:", DefaultTextScaling.TITLE);
         title.centerX();
         title.setY(Gdx.graphics.getHeight() - title_padding);
         difficultyButtons = new ArrayList<>();
         for (Difficulty diff : Difficulty.values()) {
             Button button = new Button(diff.name(), true, (x, y, b) -> {
                 Game.getInstance().getScreenStack().push(new PongScreen(diff));
-            }, Game.getInstance(), 0.5f);
+            }, Game.getInstance());
             button.centerX();
             if (difficultyButtons.isEmpty()) {
                 button.setY((title.getY() - title.getHeight()) - button.getHeight() - title_padding);

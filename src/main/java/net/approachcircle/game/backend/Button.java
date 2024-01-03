@@ -39,7 +39,7 @@ public class Button implements Renderable, Transformable {
     }
 
     public Button(String text, boolean background, ButtonClickListener listener, InputManager inputManager) {
-        this(text, background, listener, inputManager, 0.75f);
+        this(text, background, listener, inputManager, DefaultTextScaling.BUTTON);
     }
 
     private void updateInputProcessor() {

@@ -1,13 +1,14 @@
 package net.approachcircle.game;
 
 import com.badlogic.gdx.Gdx;
+import net.approachcircle.game.backend.DefaultTextScaling;
 import net.approachcircle.game.backend.Renderable;
 import net.approachcircle.game.backend.TextRenderable;
 
 public class Score implements Renderable {
     private int playerScore = 0;
     private int opponentScore = 0;
-    private final float SCALE = 0.75f;
+    private final float SCALE = DefaultTextScaling.SUBTITLE;
     // private final float SCALE = 4;
     private final int TOP_PADDING = 75;
     private final TextRenderable renderable;

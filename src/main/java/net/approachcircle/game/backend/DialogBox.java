@@ -39,7 +39,7 @@ public class DialogBox implements Renderable, Transformable {
             });
         }
         this.type = type;
-        this.prompt = new TextRenderable(prompt, 0.75f);
+        this.prompt = new TextRenderable(prompt, DefaultTextScaling.SUBTITLE);
         this.prompt.centerRelativeTo(this, true);
         this.prompt.setY((this.prompt.getY() + (getHeight() / 3)) - this.prompt.getHeight() / 2);
         this.prompt.setMaxWidth(getWidth());
@@ -58,19 +58,19 @@ public class DialogBox implements Renderable, Transformable {
             case Information -> {
                 ok = new Button("OK", true, (x, y, b) -> {
                     responseListener.onOk();
-                }, inputManager, 1);
+                }, inputManager, DefaultTextScaling.BUTTON);
                 ok.centerXRelativeTo(this);
                 ok.setY(getY() + button_padding);
             }
             case Question -> {
                 yes = new Button("Yes", true, (x, y, b) -> {
                     responseListener.onYes();
-                }, inputManager, 1);
+                }, inputManager, DefaultTextScaling.BUTTON);
                 yes.setY(getY() + button_padding);
                 yes.setX(getX() + button_padding);
                 no = new Button("No", true, (x, y, b) -> {
                     responseListener.onNo();
-                }, inputManager, 1);
+                }, inputManager, DefaultTextScaling.BUTTON);
                 no.setY(getY() + button_padding);
                 no.setX(getX() + getWidth() - button_padding - no.getWidth());
             }

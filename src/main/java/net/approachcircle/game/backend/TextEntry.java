@@ -28,7 +28,7 @@ public class TextEntry implements Renderable, Transformable {
         background = new TransformableRect(Color.GRAY);
         setWidth(width + TEXT_PADDING);
         setHeight(height + TEXT_PADDING);
-        text = new TextRenderable(0.5f);
+        text = new TextRenderable(DefaultTextScaling.SMALL);
         caret = new TransformableRect(Color.WHITE);
         caret.setWidth(2);
     }
