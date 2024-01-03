@@ -10,16 +10,19 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     private Crosshair crosshair;
     private InputMultiplexer inputMultiplexer;
     private ScreenStack screenStack;
+    private DiscordPrescence discord;
     private boolean suspended = false;
 
     @Override
     public void create() {
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
+        discord = new DiscordPrescence();
         ScreenUtility.initialise();
         Gdx.input.setInputProcessor(inputMultiplexer);
         screenStack.push(new MainMenuScreen());
         crosshair = new Crosshair();
+        discord.connect();
     }
 
     @Override
@@ -34,6 +37,28 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
             screenStack.peek().render();
         }
         crosshair.render();
+        discord.update(getDiscordState());
+    }
+
+    private String getDiscordState() {
+        if (screenStack.peek() instanceof MainMenuScreen) {
+            return "In the main menu";
+        } else if (screenStack.peek() instanceof DifficultySelectScreen) {
+            return "Choosing a difficulty";
+        } else if (screenStack.peek() instanceof PongScreen) {
+            return "In a game";
+        } else if (screenStack.peek() instanceof PauseScreen) {
+            return "In a paused game";
+        } else if (screenStack.peek() instanceof ResultScreen) {
+            return "Finished a game";
+        }
+        return screenStack.peek().toString();
+    }
+
+    @Override
+    public void dispose() {
+        instance = null;
+        discord.disconnect();
     }
 
     public static Game getInstance() {
