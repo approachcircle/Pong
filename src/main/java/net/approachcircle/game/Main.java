@@ -1,5 +1,6 @@
 package net.approachcircle.game;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
@@ -9,8 +10,9 @@ public class Main {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setForegroundFPS(60);
         config.setMaximized(true);
-        config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+        // config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
         config.setTitle("Pong");
+        config.setWindowIcon(Files.FileType.Classpath, "app-icon.png");
         try {
             new Lwjgl3Application(Game.getInstance(), config);
         } catch (RuntimeException e) {
