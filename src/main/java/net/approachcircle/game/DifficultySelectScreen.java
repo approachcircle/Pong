@@ -8,7 +8,7 @@ import net.approachcircle.game.backend.TextRenderable;
 import java.util.ArrayList;
 
 
-public class DifficultySelectScreen extends Screen {
+public class DifficultySelectScreen extends Screen implements CloseOnEscape {
     private final TextRenderable title;
     private final ArrayList<Button> difficultyButtons;
     private final int title_padding = 50;
