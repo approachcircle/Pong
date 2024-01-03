@@ -36,7 +36,6 @@ public class MainMenuScreen extends Screen implements CloseOnEscape {
         }, Game.getInstance());
         multiplayerButton.center();
         multiplayerButton.setY(multiplayerButton.getY() - (sp_button_padding + mp_button_padding));
-        System.out.println(Locale.getDefault().getCountry());
         if (!Locale.getDefault().getCountry().equalsIgnoreCase("GB")) {
             wrongLayout.toggle();
         }
