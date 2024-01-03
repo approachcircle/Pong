@@ -18,11 +18,13 @@ public class DialogBox implements Renderable, Transformable {
     private Button yes;
     private Button no;
     private final DialogListener responseListener;
+    private final InputManager inputManager;
     private boolean hidden = true;
     private final float button_padding = 25;
 
-    public DialogBox(DialogType type, String prompt, DialogListener responseListener) {
+    public DialogBox(DialogType type, String prompt, DialogListener responseListener, InputManager inputManager) {
         background = new TransformableRect(Color.DARK_GRAY);
+        this.inputManager = inputManager;
         setWidth(((float) Gdx.graphics.getWidth() / 7) * 4);
         setHeight(((float) Gdx.graphics.getHeight() / 7) * 3);
         center();
@@ -48,8 +50,8 @@ public class DialogBox implements Renderable, Transformable {
         layoutButtons();
     }
 
-    public DialogBox(DialogType type, String prompt) {
-        this(type, prompt, null);
+    public DialogBox(DialogType type, String prompt, InputManager inputManager) {
+        this(type, prompt, null, inputManager);
     }
 
     private void layoutButtons() {
@@ -57,19 +59,19 @@ public class DialogBox implements Renderable, Transformable {
             case Information -> {
                 ok = new Button("OK", true, (x, y, b) -> {
                     responseListener.onOk();
-                }, Game.getInstance(), 1);
+                }, inputManager, 1);
                 ok.centerXRelativeTo(this);
                 ok.setY(getY() + button_padding);
             }
             case Question -> {
                 yes = new Button("Yes", true, (x, y, b) -> {
                     responseListener.onYes();
-                }, Game.getInstance(), 1);
+                }, inputManager, 1);
                 yes.setY(getY() + button_padding);
                 yes.setX(getX() + button_padding);
                 no = new Button("No", true, (x, y, b) -> {
                     responseListener.onNo();
-                }, Game.getInstance(), 1);
+                }, inputManager, 1);
                 no.setY(getY() + button_padding);
                 no.setX(getX() + getWidth() - button_padding - no.getWidth());
             }
@@ -85,6 +87,10 @@ public class DialogBox implements Renderable, Transformable {
         background.setY(getY());
         background.render();
         prompt.render();
+        // this might cause problems in the future, but for now we're going to clear
+        // any input processors before setting ours to give our buttons precedence
+        // over any other buttons being rendered behind our dialog box.
+        inputManager.clearInputProcessors();
         switch (type) {
             case Information -> {
                 ok.render();
