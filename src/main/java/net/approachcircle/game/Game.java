@@ -10,14 +10,14 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     private Crosshair crosshair;
     private InputMultiplexer inputMultiplexer;
     private ScreenStack screenStack;
-    private DiscordPrescence discord;
+    private DiscordPresence discord;
     private boolean suspended = false;
 
     @Override
     public void create() {
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
-        discord = new DiscordPrescence();
+        discord = new DiscordPresence();
         ScreenUtility.initialise();
         Gdx.input.setInputProcessor(inputMultiplexer);
         screenStack.push(new MainMenuScreen());
