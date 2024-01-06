@@ -5,6 +5,16 @@ import com.badlogic.gdx.graphics.Color;
 
 import java.util.Objects;
 
+/**
+ * <p>
+ *     displays a dialog box with either an "OK" button or "Yes" and "No" buttons.
+ *     a {@code DialogListener} can be added to control the behaviour of the buttons.
+ * </p>
+ * <b>
+ *     ensure {@code render()} is called after any other objects so that this dialog
+ *     and it's background tint is rendered over any other objects.
+ * </b>
+ */
 public class DialogBox implements Renderable, Transformable {
     private float x;
     private float y;
@@ -18,11 +28,16 @@ public class DialogBox implements Renderable, Transformable {
     private Button no;
     private final DialogListener responseListener;
     private final InputManager inputManager;
+    private final TransformableRect tint;
     private boolean hidden = true;
     private final float button_padding = 25;
 
     public DialogBox(DialogType type, String prompt, DialogListener responseListener, InputManager inputManager) {
         background = new TransformableRect(Color.DARK_GRAY);
+        tint = new TransformableRect();
+        tint.setWidth(Gdx.graphics.getWidth());
+        tint.setHeight(Gdx.graphics.getHeight());
+        tint.setColor(new Color(0, 0, 0, 0.75f));
         this.inputManager = inputManager;
         setWidth(((float) Gdx.graphics.getWidth() / 7) * 4);
         setHeight(((float) Gdx.graphics.getHeight() / 7) * 3);
@@ -80,6 +95,7 @@ public class DialogBox implements Renderable, Transformable {
     @Override
     public void render() {
         if (hidden) return;
+        tint.render();
         background.setWidth(getWidth());
         background.setHeight(getHeight());
         background.setX(getX());
