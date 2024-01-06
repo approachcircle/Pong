@@ -8,7 +8,7 @@ public class TransformableRect extends ShapeRenderable implements Transformable 
     private float y;
     private float width;
     private float height;
-    private final Color color;
+    private Color color;
 
     public TransformableRect(Color color) {
         this.color = color;
@@ -68,5 +68,13 @@ public class TransformableRect extends ShapeRenderable implements Transformable 
     @Override
     public void setY(float y) {
         this.y = y;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
