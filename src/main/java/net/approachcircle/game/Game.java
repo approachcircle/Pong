@@ -15,6 +15,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
 
     @Override
     public void create() {
+        ServerConnection.getInstance().connect();
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
         discord = new DiscordPresence();
@@ -56,6 +57,8 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
             return "In a paused game";
         } else if (screenStack.peek() instanceof ResultScreen) {
             return "Finished a game";
+        } else if (screenStack.peek() instanceof MultiplayerCreationScreen) {
+            return "Creating/joining a multiplayer game";
         }
         return "In the " + screenStack.peek().toString();
     }
@@ -64,6 +67,11 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     public void dispose() {
         instance = null;
         discord.disconnect();
+        ServerConnection.getInstance().close();
+        System.out.println("threads alive:");
+        for (Thread thread : Thread.getAllStackTraces().keySet()) {
+            System.out.printf("%s: %s%n", thread.getName(), thread.getState().toString());
+        }
     }
 
     public static Game getInstance() {

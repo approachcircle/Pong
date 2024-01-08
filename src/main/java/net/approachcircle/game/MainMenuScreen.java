@@ -1,12 +1,17 @@
 package net.approachcircle.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import net.approachcircle.game.backend.*;
 
 import java.util.Locale;
 
 public class MainMenuScreen extends Screen {
     private final TextRenderable title;
+    private final TextRenderable connectionState;
+    private final float connectionStatePadding = 15;
+    private final TransformableCircle connectionStateIcon;
+    private final float connectionStateIconOffset = 25;
     private final Button singleplayerButton;
     private final Button multiplayerButton;
     private final int title_padding = 50;
@@ -26,13 +31,20 @@ public class MainMenuScreen extends Screen {
         title = new TextRenderable("Pong", DefaultTextScaling.TITLE);
         title.centerX();
         title.setY(Gdx.graphics.getHeight() - title_padding);
+        connectionState = new TextRenderable(DefaultTextScaling.SMALL);
+        connectionState.setText(String.valueOf(ServerConnection.getInstance().getState()));
+        connectionState.setX(Gdx.graphics.getWidth() - (connectionState.getWidth() + connectionStatePadding));
+        connectionState.setY(connectionState.getHeight() + connectionStatePadding);
+        connectionStateIcon = new TransformableCircle();
+        connectionStateIcon.setX(connectionState.getX() - (connectionStateIconOffset + (connectionStateIcon.getWidth() / 2)));
+        connectionStateIcon.setY(connectionState.getY() - connectionState.getHeight() / 2);
         singleplayerButton = new Button("Singleplayer", true, (x, y, b) -> {
             Game.getInstance().getScreenStack().push(new DifficultySelectScreen());
         }, Game.getInstance());
         singleplayerButton.center();
         singleplayerButton.setY(singleplayerButton.getY() + sp_button_padding);
         multiplayerButton = new Button("Multiplayer", true, (x, y, b) -> {
-            comingSoon.toggle();
+            Game.getInstance().getScreenStack().push(new MultiplayerCreationScreen());
         }, Game.getInstance());
         multiplayerButton.center();
         multiplayerButton.setY(multiplayerButton.getY() - (sp_button_padding + mp_button_padding));
@@ -49,6 +61,14 @@ public class MainMenuScreen extends Screen {
     @Override
     public void render() {
         title.render();
+        connectionState.setText(String.valueOf(ServerConnection.getInstance().getState()));
+        connectionState.render();
+        if (ServerConnection.getInstance().getState() == ConnectionState.Online) {
+            connectionStateIcon.setColor(Color.GREEN);
+        } else {
+            connectionStateIcon.setColor(Color.GRAY);
+        }
+        connectionStateIcon.render();
         singleplayerButton.render();
         multiplayerButton.render();
         comingSoon.render();
