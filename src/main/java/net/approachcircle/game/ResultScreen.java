@@ -2,6 +2,7 @@ package net.approachcircle.game;
 
 import com.badlogic.gdx.Gdx;
 import net.approachcircle.game.backend.Button;
+import net.approachcircle.game.backend.DefaultTextScaling;
 import net.approachcircle.game.backend.Screen;
 import net.approachcircle.game.backend.TextRenderable;
 
@@ -13,7 +14,7 @@ public class ResultScreen extends Screen {
     private final Button retryButton;
     private final Button mainMenuButton;
     public ResultScreen(Outcome outcome, Difficulty lastDifficulty) {
-        text = new TextRenderable("You " + outcome.name().toLowerCase() + "!", 1.5f);
+        text = new TextRenderable("You " + outcome.name().toLowerCase() + "!", DefaultTextScaling.TITLE);
         text.centerX();
         text.setY(Gdx.graphics.getHeight() - text_padding);
         retryButton = new Button("Retry", true, (x, y, b) -> {
