@@ -1,8 +1,8 @@
 package net.approachcircle.game.backend;
 
 public interface DefaultTextScaling {
-   float TITLE = 0.65f;
-   float BUTTON = 0.35f;
-   float SUBTITLE = 0.5f;
+   float TITLE = 0.55f;
+   float BUTTON = 0.32f;
+   float SUBTITLE = 0.45f;
    float SMALL = BUTTON - 0.1f;
 }
