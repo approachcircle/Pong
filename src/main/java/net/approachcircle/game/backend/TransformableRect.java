@@ -1,7 +1,9 @@
 package net.approachcircle.game.backend;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.lwjgl.opengl.GL20;
 
 public class TransformableRect extends ShapeRenderable implements Transformable {
     private float x;
@@ -24,10 +26,12 @@ public class TransformableRect extends ShapeRenderable implements Transformable 
 
     @Override
     public void render() {
+        Gdx.gl.glEnable(GL20.GL_BLEND);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(color);
         shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
         shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     @Override
