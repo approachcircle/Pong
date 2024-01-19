@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 import net.approachcircle.game.backend.*;
+import net.approachcircle.game.network.ServerConnection;
 
 public class Game extends ApplicationAdapter implements ScreenManager, InputManager {
     public static Game instance;
