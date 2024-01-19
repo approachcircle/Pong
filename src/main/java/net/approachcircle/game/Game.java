@@ -30,6 +30,9 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     public void render() {
         ScreenUtils.clear(Color.BLACK);
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            if (screenStack.isEmpty()) {
+                Gdx.app.exit();
+            }
             switch (getScreenStack().peek().getEscapeBehaviour()) {
                 case Exit -> Gdx.app.exit();
                 case Pop -> getScreenStack().pop();
