@@ -3,6 +3,8 @@ package net.approachcircle.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import net.approachcircle.game.backend.*;
+import net.approachcircle.game.network.ConnectionState;
+import net.approachcircle.game.network.ServerConnection;
 
 import java.util.Locale;
 
