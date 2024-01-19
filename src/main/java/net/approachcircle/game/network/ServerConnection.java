@@ -60,7 +60,7 @@ public class ServerConnection {
 
     public void emitEventAsynchronously(GameEvent event, Object... argsTo) {
         System.out.printf("event '%s' outgoing ->%n", event.getRawValue()); // TODO: oh god the console spam on movement events (if event != GameEvent.PLAYER_MOVE/OPPONENT_MOVE)
-        socket.emit(event.getRawValue(), argsTo, (Ack) argsFrom -> {
+        socket.emit(event.getRawValue(), argsTo, argsFrom -> {
         // TODO: log incoming ack
             if (ackCancelled) {
                 ackCancelled = false;
@@ -125,6 +125,7 @@ public class ServerConnection {
         socket.connect();
         socket.on("connect_error", (args) -> {
             System.out.printf("network error: %s%n", ((Exception) args[0]).getMessage());
+            // TODO: replace with more robust logging later
         });
     }
 
