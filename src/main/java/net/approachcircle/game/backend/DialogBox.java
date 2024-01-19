@@ -55,17 +55,21 @@ public class DialogBox implements Renderable, Transformable {
         }
         this.type = type;
         this.prompt = new TextRenderable(prompt, DefaultTextScaling.SUBTITLE);
-        this.prompt.centerRelativeTo(this, true);
-        this.prompt.setY((this.prompt.getY() + (getHeight() / 3)) - this.prompt.getHeight() / 2);
-        this.prompt.setMaxWidth(getWidth());
-        // multiplying by 2 will set a gap of 50 pixels each
-        // side of the prompt.
-        this.prompt.setAutoScalePadding(50 * 2);
+        positionText();
         layoutButtons();
     }
 
     public DialogBox(DialogType type, String prompt, InputManager inputManager) {
         this(type, prompt, null, inputManager);
+    }
+
+    private void positionText() {
+        prompt.centerRelativeTo(this, true);
+        prompt.setY((prompt.getY() + (getHeight() / 3)) - prompt.getHeight() / 2);
+        prompt.setMaxWidth(getWidth());
+        // multiplying by 2 will set a gap of 50 pixels each
+        // side of the prompt.
+        prompt.setAutoScalePadding(50 * 2);
     }
 
     private void layoutButtons() {
@@ -115,6 +119,15 @@ public class DialogBox implements Renderable, Transformable {
                 no.render();
             }
         }
+    }
+
+    public void setPrompt(String prompt) {
+        this.prompt.setText(prompt);
+        positionText();
+    }
+
+    public String getPrompt() {
+        return prompt.getText();
     }
 
     @Override
