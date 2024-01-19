@@ -1,6 +1,5 @@
 package net.approachcircle.game.network;
 
-import io.socket.client.Ack;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 

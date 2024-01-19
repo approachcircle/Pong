@@ -10,8 +10,8 @@ public class Logger {
     private static StringBuilder logName;
     private static PrintStream outStream = System.out;
     private static PrintStream errStream = System.err;
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
     public static void initialise(String name) {
         if (initialised) return;
         path = String.format("%s\\%s\\logs\\", System.getenv("APPDATA"), name);
