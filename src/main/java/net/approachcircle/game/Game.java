@@ -12,7 +12,6 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     private InputMultiplexer inputMultiplexer;
     private ScreenStack screenStack;
     private DiscordPresence discord;
-    private boolean suspended = false;
 
     @Override
     public void create() {
@@ -29,9 +28,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
 
     @Override
     public void render() {
-        if (!suspended) {
-            ScreenUtils.clear(Color.BLACK);
-        }
+        ScreenUtils.clear(Color.BLACK);
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             switch (getScreenStack().peek().getEscapeBehaviour()) {
                 case Exit -> Gdx.app.exit();
@@ -40,7 +37,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
                 default -> throw new EnumConstantNotPresentException(EscapeBehaviour.class, getScreenStack().peek().getEscapeBehaviour().toString());
             }
         }
-        if (!screenStack.isEmpty() && !suspended) {
+        if (!screenStack.isEmpty()) {
             screenStack.peek().render();
         }
         crosshair.render();
