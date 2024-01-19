@@ -61,7 +61,7 @@ public class ServerConnection {
     public void emitEventAsynchronously(GameEvent event, Object... argsTo) {
         System.out.printf("event '%s' outgoing ->%n", event.getRawValue()); // TODO: oh god the console spam on movement events (if event != GameEvent.PLAYER_MOVE/OPPONENT_MOVE)
         socket.emit(event.getRawValue(), argsTo, (Ack) argsFrom -> {
-// TODO: ack incoming msg
+        // TODO: log incoming ack
             if (ackCancelled) {
                 ackCancelled = false;
                 return;
@@ -108,7 +108,7 @@ public class ServerConnection {
                 response.message = "server failed to send acknowledgement";
                 sw.stop();
                 return response;
-//TODO: ack timeout message
+                //TODO: log ack timeout
             }
             Thread.onSpinWait();
         }
