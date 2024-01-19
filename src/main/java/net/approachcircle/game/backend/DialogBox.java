@@ -111,9 +111,7 @@ public class DialogBox implements Renderable, Transformable {
         // over any other buttons being rendered behind our dialog box.
         inputManager.clearInputProcessors();
         switch (type) {
-            case Information -> {
-                ok.render();
-            }
+            case Information -> ok.render();
             case Question -> {
                 yes.render();
                 no.render();

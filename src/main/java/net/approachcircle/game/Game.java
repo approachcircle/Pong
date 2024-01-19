@@ -71,7 +71,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
         ServerConnection.getInstance().close();
         System.out.println("threads alive:");
         for (Thread thread : Thread.getAllStackTraces().keySet()) {
-            System.out.printf("%s: %s%n", thread.getName(), thread.getState().toString());
+            System.out.printf("%s: %s%n", thread.getName(), thread.getState());
         }
     }
 
