@@ -15,7 +15,6 @@ public class LayoutConverter {
         }
         // if a key name contains lowercase letters by default, it must be a special key
         String nameOfKey = Input.Keys.toString(keycode);
-        System.out.println(nameOfKey);
         for (Character c : nameOfKey.toCharArray()) {
             if (Character.isLowerCase(c)) {
                 return "";
