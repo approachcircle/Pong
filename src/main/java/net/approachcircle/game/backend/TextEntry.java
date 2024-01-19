@@ -13,6 +13,7 @@ public class TextEntry implements Renderable, Transformable {
     // calculate position of caret with text.getX() + text.getWidth()
     private final TransformableRect caret;
     private final InputManager inputManager;
+    private final int limit;
     private InputAdapter inputProcessor;
     private boolean shiftHeld = false;
     private boolean ctrlHeld = false;
@@ -23,14 +24,27 @@ public class TextEntry implements Renderable, Transformable {
     private final float TEXT_PADDING = 20;
     private boolean hasFocus = false;
 
-    public TextEntry(float width, float height, InputManager inputManager) {
+    public TextEntry(int limit, float width, float height, InputManager inputManager) {
         this.inputManager = inputManager;
+        this.limit = limit;
         background = new TransformableRect(Color.GRAY);
-        setWidth(width + TEXT_PADDING);
-        setHeight(height + TEXT_PADDING);
+        setWidth(width);
+        setHeight(height);
         text = new TextRenderable(DefaultTextScaling.SMALL);
         caret = new TransformableRect(Color.WHITE);
         caret.setWidth(2);
+    }
+
+    public TextEntry(float width, float height, InputManager inputManager) {
+        this(-1, width, height, inputManager);
+    }
+
+    public TextEntry(int limit, InputManager inputManager) {
+        this(limit, 500, 50, inputManager);
+    }
+
+    public TextEntry(InputManager inputManager) {
+        this(-1, inputManager);
     }
     @Override
     public void render() {
@@ -145,7 +159,7 @@ public class TextEntry implements Renderable, Transformable {
     }
 
     private boolean atCapacity() {
-        return text.getWidth() >= background.getWidth() - TEXT_PADDING;
+        return (text.getWidth() >= background.getWidth() - TEXT_PADDING) || (text.getText().length() >= limit);
     }
 
     private void textAppend(String data) {
@@ -164,12 +178,24 @@ public class TextEntry implements Renderable, Transformable {
 
     @Override
     public void setWidth(float width) {
-        background.setWidth(width);
+        background.setWidth(width + TEXT_PADDING);
     }
 
     @Override
     public void setHeight(float height) {
-        background.setHeight(height);
+        background.setHeight(height + TEXT_PADDING);
+    }
+
+    public void setWidthAtLeastByChars(int chars) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("D".repeat(chars / 2));
+        TextRenderable placeholder = new TextRenderable(sb.toString());
+        placeholder.render(); // render for one frame to calculate text width
+        setWidth(placeholder.getWidth());
+    }
+
+    public String getText() {
+        return text.getText();
     }
 
     @Override
