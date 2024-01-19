@@ -17,6 +17,7 @@ public class ScreenStack {
         inputManager.clearInputProcessors();
         Screen previous = stack.pop();
         String log = String.format("screen popped: %s -> %s", previous, peek());
+        // TODO: replace with more robust logging later
         System.out.println(log);
         return previous;
     }
@@ -51,6 +52,7 @@ public class ScreenStack {
 
     public void push(Screen screen) {
         String log = String.format("screen pushed: %s -> %s", peek(), screen);
+        // TODO: replace with more robust logging later
         inputManager.clearInputProcessors();
         stack.push(screen);
         System.out.println(log);
