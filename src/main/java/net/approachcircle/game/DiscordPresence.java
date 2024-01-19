@@ -2,6 +2,7 @@ package net.approachcircle.game;
 
 import meteordevelopment.discordipc.DiscordIPC;
 import meteordevelopment.discordipc.RichPresence;
+import net.approachcircle.game.backend.Logger;
 
 public class DiscordPresence {
     private final long applicationID = 1192161452287590420L;
@@ -14,6 +15,7 @@ public class DiscordPresence {
         DiscordIPC.start(applicationID, null);
         rpc.setStart(System.currentTimeMillis() / 1000L);
         rpc.setLargeImage("pong-icon", "Pong");
+        Logger.info("discord presence connected");
     }
 
     public void update(String state) {
@@ -24,5 +26,6 @@ public class DiscordPresence {
 
     public void disconnect() {
         DiscordIPC.stop();
+        Logger.info("discord presence disconnected");
     }
 }
