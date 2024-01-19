@@ -61,7 +61,7 @@ public class ServerConnection {
     }
 
     public void emitEventAsynchronously(GameEvent event, Object... argsTo) {
-        Logger.info(String.format("-> event '%s' outgoing", event.name())); // TODO: oh god the console spam on movement events (if event != GameEvent.PLAYER_MOVE/OPPONENT_MOVE)
+        Logger.info(String.format("-> event '%s' outgoing", event.name())); // ensure this filters player movement events
         lastEvent = event;
         socket.emit(event.getRawValue(), argsTo, argsFrom -> {
             lastEvent = null;
