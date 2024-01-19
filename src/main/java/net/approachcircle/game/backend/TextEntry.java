@@ -187,9 +187,7 @@ public class TextEntry implements Renderable, Transformable {
     }
 
     public void setWidthAtLeastByChars(int chars) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("D".repeat(chars / 2));
-        TextRenderable placeholder = new TextRenderable(sb.toString());
+        TextRenderable placeholder = new TextRenderable("D".repeat(chars / 2));
         placeholder.render(); // render for one frame to calculate text width
         setWidth(placeholder.getWidth());
     }
