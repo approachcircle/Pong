@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
+import net.approachcircle.game.backend.Logger;
 import org.apache.commons.lang3.time.StopWatch;
 
 public class ServerConnection {
@@ -15,6 +16,7 @@ public class ServerConnection {
     private final URI uri;
     private final Socket socket;
     private volatile ServerResponse lastResponse;
+    private GameEvent lastEvent;
     private int ackTimeout = 2000;
     private boolean ackCancelled = false;
 
@@ -46,8 +48,8 @@ public class ServerConnection {
     }
 
     /**
-     * calls {@code emitEventAsynchronously()} then calls {@code awaitAndConsumeResponse()} to spin
-     * until the server responds.
+     * calls {@code emitEventAsynchronously()} then calls {@code awaitAndConsumeResponse()} (provided the
+     * {@code GameEvent} is expecting an acknowledgement) to spin until the server responds.
      * @param event the {@code GameEvent} to emit to the server
      * @param argsTo the args to emit to the server alongside the {@code GameEvent}
      * @return the {@code ServerResponse} object containing information from the server
@@ -59,9 +61,11 @@ public class ServerConnection {
     }
 
     public void emitEventAsynchronously(GameEvent event, Object... argsTo) {
-        System.out.printf("event '%s' outgoing ->%n", event.getRawValue()); // TODO: oh god the console spam on movement events (if event != GameEvent.PLAYER_MOVE/OPPONENT_MOVE)
+        Logger.info(String.format("-> event '%s' outgoing", event.name())); // TODO: oh god the console spam on movement events (if event != GameEvent.PLAYER_MOVE/OPPONENT_MOVE)
+        lastEvent = event;
         socket.emit(event.getRawValue(), argsTo, argsFrom -> {
-        // TODO: log incoming ack
+            lastEvent = null;
+            Logger.info(String.format("<- ack received for '%s'", event.name()));
             if (ackCancelled) {
                 ackCancelled = false;
                 return;
@@ -102,13 +106,13 @@ public class ServerConnection {
         sw.start();
         while (lastResponse == null) {
             if (sw.getTime(TimeUnit.MILLISECONDS) > ackTimeout) {
+                Logger.error(String.format("ack timed out for event '%s'", lastEvent.name()));
                 ackCancelled = true;
                 ServerResponse response = new ServerResponse();
                 response.state = State.Error;
                 response.message = "server failed to send acknowledgement";
                 sw.stop();
                 return response;
-                //TODO: log ack timeout
             }
             Thread.onSpinWait();
         }
@@ -124,8 +128,7 @@ public class ServerConnection {
     public void connect() {
         socket.connect();
         socket.on("connect_error", (args) -> {
-            System.out.printf("network error: %s%n", ((Exception) args[0]).getMessage());
-            // TODO: replace with more robust logging later
+            Logger.error(String.format("network error: %s", ((Exception) args[0]).getMessage()));
         });
     }
 
