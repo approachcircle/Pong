@@ -63,13 +63,10 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
 
     @Override
     public void dispose() {
+        Logger.info("disposing!");
         instance = null;
         discord.disconnect();
         ServerConnection.getInstance().close();
-        System.out.println("threads alive:");
-        for (Thread thread : Thread.getAllStackTraces().keySet()) {
-            System.out.printf("%s: %s%n", thread.getName(), thread.getState());
-        }
     }
 
     public static Game getInstance() {
