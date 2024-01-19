@@ -107,8 +107,4 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     public void clearInputProcessors() {
         inputMultiplexer.clear();
     }
-
-    public void toggleSuspend() {
-        suspended = !suspended;
-    }
 }
