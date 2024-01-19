@@ -24,6 +24,7 @@ dependencies {
     implementation("com.badlogicgames.gdx-controllers:gdx-controllers-desktop:2.2.3")
     implementation("meteordevelopment:discord-ipc:1.1")
     implementation("com.google.code.gson:gson:2.8.9")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
 }
 
 tasks.jar {
