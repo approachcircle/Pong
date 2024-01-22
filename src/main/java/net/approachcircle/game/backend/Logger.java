@@ -23,7 +23,8 @@ public class Logger {
 
     public static void log(LogLevel level, Object message) {
         if (!initialised) {
-            throw new RuntimeException("initialise the logger before use");
+            initialise("Application");
+            warn("the logger has not been initialised yet, ensure you do so before use");
         }
         String time = timeFormat.format(new Date());
         String log = String.format("%s [%s]: %s%n", time, level, message);
