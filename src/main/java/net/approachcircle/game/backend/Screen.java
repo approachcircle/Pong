@@ -8,4 +8,6 @@ public abstract class Screen implements Renderable {
     public EscapeBehaviour getEscapeBehaviour() {
         return EscapeBehaviour.Other;
     }
+    public void onEnter() {}
+    public void onExit() {}
 }

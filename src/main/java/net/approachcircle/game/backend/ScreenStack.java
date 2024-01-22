@@ -15,7 +15,11 @@ public class ScreenStack {
             return null;
         }
         inputManager.clearInputProcessors();
+        if (peek() != null) {
+            peek().onExit();
+        }
         Screen previous = stack.pop();
+        peek().onEnter();
         String log = String.format("screen popped: %s -> %s", previous, peek());
         Logger.info(log);
         return previous;
@@ -50,9 +54,16 @@ public class ScreenStack {
     }
 
     public void push(Screen screen) {
+        if (screen == null) {
+            throw new IllegalArgumentException("pushing a null screen?");
+        }
         String log = String.format("screen pushed: %s -> %s", peek(), screen);
         inputManager.clearInputProcessors();
+        if (peek() != null) {
+            peek().onExit();
+        }
         stack.push(screen);
+        peek().onEnter();
         Logger.info(log);
     }
 
