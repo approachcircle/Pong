@@ -29,7 +29,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *     entirely visible.
  * </p>
  */
-public class TextRenderable implements Transformable, Renderable {
+public class TextRenderable extends Renderable implements Transformable {
     private final BitmapFont font;
     private final Batch batch = new SpriteBatch();
     private GlyphLayout glyphLayout;

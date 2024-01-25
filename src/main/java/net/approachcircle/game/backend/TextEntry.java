@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 
-public class TextEntry implements Renderable, Transformable {
+public class TextEntry extends Renderable implements Transformable {
     private float x;
     private float y;
     private final TransformableRect background;

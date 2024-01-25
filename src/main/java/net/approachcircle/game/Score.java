@@ -5,7 +5,7 @@ import net.approachcircle.game.backend.DefaultTextScaling;
 import net.approachcircle.game.backend.Renderable;
 import net.approachcircle.game.backend.TextRenderable;
 
-public class Score implements Renderable {
+public class Score extends Renderable {
     private int playerScore = 0;
     private int opponentScore = 0;
     private final float SCALE = DefaultTextScaling.SUBTITLE;

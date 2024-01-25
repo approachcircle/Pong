@@ -9,8 +9,6 @@ import net.approachcircle.game.network.State;
 
 public class JoinGameScreen extends Screen {
     private final TextEntry gameCode;
-    private final TextRenderable title;
-    private final Button joinButton;
     private final DialogBox errorDialog;
 
     public JoinGameScreen() {
@@ -18,10 +16,12 @@ public class JoinGameScreen extends Screen {
         gameCode = new TextEntry(6, Game.getInstance());
         gameCode.setWidthAtLeastByChars(6);
         gameCode.center();
-        title = new TextRenderable("Join a game", DefaultTextScaling.TITLE);
+        addMember(gameCode);
+        TextRenderable title = new TextRenderable("Join a game", DefaultTextScaling.TITLE);
         title.centerX();
         title.setY(Gdx.graphics.getHeight() - 50);
-        joinButton = new Button("Join", true, (x, y, b) -> {
+        addMember(title);
+        Button joinButton = new Button("Join", true, (x, y, b) -> {
             errorDialog.toggle();
             ServerResponse response = ServerConnection.getInstance().emitEventSynchronously(GameEvent.JOIN_GAME, gameCode.getText());
             if (response.state.equals(State.Error)) {
@@ -32,15 +32,9 @@ public class JoinGameScreen extends Screen {
                 throw new EnumConstantNotPresentException(State.class, response.state.name());
             }
         }, Game.getInstance());
+        addMember(joinButton);
+        addMember(errorDialog);
     }
-    @Override
-    public void render() {
-        title.render();
-        joinButton.render();
-        gameCode.render();
-        errorDialog.render();
-    }
-
     @Override
     public EscapeBehaviour getEscapeBehaviour() {
         return EscapeBehaviour.Pop;

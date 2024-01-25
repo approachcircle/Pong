@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 
-public class Button implements Renderable, Transformable {
+public class Button extends Renderable implements Transformable {
     private float x;
     private float y;
     private final boolean background;

@@ -1,5 +1,10 @@
 package net.approachcircle.game.backend;
 
-public interface Renderable {
-    void render();
+public abstract class Renderable {
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
+
+    public abstract void render();
 }

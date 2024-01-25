@@ -11,11 +11,11 @@ import java.util.Objects;
  *     a {@code DialogListener} can be added to control the behaviour of the buttons.
  * </p>
  * <b>
- *     ensure {@code render()} is called after any other objects so that this dialog
- *     and it's background tint is rendered over any other objects.
+ *     WARNING: in order for this dialog box to be rendered above all other members in a {@code Screen}, it must
+ *     be the last member added to the {@code Screen}.
  * </b>
  */
-public class DialogBox implements Renderable, Transformable {
+public class DialogBox extends Renderable implements Transformable {
     private float x;
     private float y;
     private float width;

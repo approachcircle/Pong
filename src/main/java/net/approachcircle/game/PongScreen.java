@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import net.approachcircle.game.backend.CollisionUtility;
 import net.approachcircle.game.backend.Screen;
-import net.approachcircle.game.backend.ScreenStack;
 import net.approachcircle.game.backend.Size;
 
 import java.util.Random;
@@ -16,19 +15,20 @@ public class PongScreen extends Screen {
     private final Opponent opponent;
     private final Ball ball;
     private final Score score;
-    private final ScreenStack screenStack;
     private final Difficulty difficulty;
 
     public PongScreen(Difficulty difficulty) {
-        this.screenStack = Game.getInstance().getScreenStack();
         player = new Player();
+        addMember(player);
         // TODO: here we should pass an argument to the constructor
         // TODO: of Opponent letting it know if this is a multiplayer
         // TODO: game or a single-player game. exceptions should be thrown
         // TODO: if methods are called in the wrong game mode context
         opponent = new Opponent();
         opponent.setDifficulty(difficulty);
+        addMember(opponent);
         ball = new Ball();
+        addMember(ball);
         chooseRandomStartTrajectory();
         switch (difficulty) {
             case Easy -> ball.speedIncline += 0;
@@ -40,6 +40,7 @@ public class PongScreen extends Screen {
         }
         this.difficulty = difficulty;
         score = new Score();
+        addMember(score);
     }
 
 
@@ -92,22 +93,18 @@ public class PongScreen extends Screen {
     }
 
     @Override
-    public void render() {
+    public void update() {
         handleCollisionProjection();
         handleCollisions();
         moveAIOpponent();
-        player.render();
-        opponent.render();
-        ball.render();
-        score.render();
         if (score.playerWon()) {
-            screenStack.push(new ResultScreen(Outcome.Win, difficulty));
+            Game.getInstance().getScreenStack().push(new ResultScreen(Outcome.Win, difficulty));
         }
         if (score.opponentWon()) {
-            screenStack.push(new ResultScreen(Outcome.Lose, difficulty));
+            Game.getInstance().getScreenStack().push(new ResultScreen(Outcome.Lose, difficulty));
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            screenStack.push(new PauseScreen());
+            Game.getInstance().getScreenStack().push(new PauseScreen());
         }
     }
 
