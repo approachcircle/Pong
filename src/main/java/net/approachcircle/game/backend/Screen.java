@@ -33,6 +33,14 @@ public abstract class Screen extends Renderable {
     public void removeMember(Renderable renderable) {
         members.remove(renderable);
     }
+    public void logCurrentMembers() {
+        Logger.info(String.format("current members in screen '%s': ", this));
+        int i = 0;
+        for (Renderable renderable : members) {
+            Logger.info(String.format("%d: %s", i, renderable));
+            i++;
+        }
+    }
     @Override
     public void render() {
         for (Renderable renderable : members) {
