@@ -2,14 +2,16 @@ package net.approachcircle.game.backend;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Logger {
     private static boolean initialised = false;
     private static String path;
     private static StringBuilder logName;
-    private static PrintStream outStream = System.out;
-    private static PrintStream errStream = System.err;
+    private static final List<PrintStream> outStreams = new ArrayList<>(List.of(new PrintStream[] { System.out }));
+    private static final List<PrintStream> errorStreams = new ArrayList<>(List.of(new PrintStream[] { System.err }));
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
     public static void initialise(String name) {
@@ -29,9 +31,13 @@ public class Logger {
         String time = timeFormat.format(new Date());
         String log = String.format("%s [%s]: %s%n", time, level, message);
         if (level == LogLevel.Error) {
-            errStream.append(log);
+            for (PrintStream errStream : errorStreams) {
+                errStream.append(log);
+            }
         } else {
-            outStream.append(log);
+            for (PrintStream outStream : outStreams) {
+                outStream.append(log);
+            }
         }
     }
 
@@ -79,8 +85,12 @@ public class Logger {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            outStream = ps;
-            errStream = ps;
+            if (!outStreams.contains(ps)) {
+                outStreams.add(ps);
+            }
+            if (!errorStreams.contains(ps)) {
+                errorStreams.add(ps);
+            }
             break;
         }
     }
@@ -89,7 +99,7 @@ public class Logger {
         try {
             return new File(path + logName + ".log").createNewFile();
         } catch (IOException e) {
-            errStream.println("an error occurred creating a new log file, redirecting logs to standard out/err");
+            error("an error occurred creating a new log file, logs will only be printed to standard out/err");
         }
         return false;
     }
