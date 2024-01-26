@@ -22,7 +22,7 @@ public class JoinGameScreen extends Screen {
         title.setY(Gdx.graphics.getHeight() - 50);
         addMember(title);
         Button joinButton = new Button("Join", true, (x, y, b) -> {
-            errorDialog.toggle();
+            errorDialog.toggleVisibility();
             ServerResponse response = ServerConnection.getInstance().emitEventSynchronously(GameEvent.JOIN_GAME, gameCode.getText());
             if (response.state.equals(State.Error)) {
                 errorDialog.setPrompt(response.message);

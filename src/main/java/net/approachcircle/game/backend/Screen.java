@@ -51,7 +51,9 @@ public abstract class Screen extends Renderable {
     @Override
     public void render() {
         for (Renderable renderable : members) {
-            renderable.render();
+            if (renderable.isVisible()) {
+                renderable.render();
+            }
         }
         update();
     }

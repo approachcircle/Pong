@@ -53,7 +53,7 @@ public class MainMenuScreen extends Screen {
         DialogBox wrongLayout = new DialogBox(DialogType.Information, wrongLayoutMessage.toString(), Game.getInstance());
         addMember(wrongLayout);
         if (!Locale.getDefault().getCountry().equalsIgnoreCase("GB")) {
-            wrongLayout.toggle();
+            wrongLayout.toggleVisibility();
         }
     }
 

@@ -29,7 +29,6 @@ public class DialogBox extends Renderable implements Transformable {
     private final DialogListener responseListener;
     private final InputManager inputManager;
     private final TransformableRect tint;
-    private boolean hidden = true;
     private final float button_padding = 25;
 
     public DialogBox(DialogType type, String prompt, DialogListener responseListener, InputManager inputManager) {
@@ -46,7 +45,7 @@ public class DialogBox extends Renderable implements Transformable {
             this.responseListener = new DialogListenerAdapter() {
                 @Override
                 public void onOk() {
-                    toggle();
+                    hide();
                 }
             };
         } else {
@@ -57,6 +56,7 @@ public class DialogBox extends Renderable implements Transformable {
         this.prompt = new TextRenderable(prompt, DefaultTextScaling.SUBTITLE);
         positionText();
         layoutButtons();
+        hide();
     }
 
     public DialogBox(DialogType type, String prompt, InputManager inputManager) {
@@ -98,7 +98,6 @@ public class DialogBox extends Renderable implements Transformable {
 
     @Override
     public void render() {
-        if (hidden) return;
         tint.render();
         background.setWidth(getWidth());
         background.setHeight(getHeight());
@@ -166,9 +165,5 @@ public class DialogBox extends Renderable implements Transformable {
     @Override
     public void setY(float y) {
         this.y = y;
-    }
-
-    public void toggle() {
-        hidden = !hidden;
     }
 }

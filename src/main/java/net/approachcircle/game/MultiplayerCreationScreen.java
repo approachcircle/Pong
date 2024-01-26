@@ -37,7 +37,7 @@ public class MultiplayerCreationScreen extends Screen {
             }
         }, Game.getInstance());
         if (ServerConnection.getInstance().getState() == ConnectionState.Offline) {
-            offlineDialog.toggle();
+            offlineDialog.toggleVisibility();
         }
         addMember(offlineDialog);
     }
