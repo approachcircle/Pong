@@ -41,6 +41,13 @@ public abstract class Screen extends Renderable {
             i++;
         }
     }
+
+    /**
+     * this method is responsible for iterating through each member in this {@code Screen} and rendering it. after all
+     * members have been rendered for this frame, the {@code update()} method of this {@code Screen} is called. this
+     * method rarely needs to be overridden unless the core rendering functionality of this entire {@code Screen}
+     * needs to be changed.
+     */
     @Override
     public void render() {
         for (Renderable renderable : members) {
