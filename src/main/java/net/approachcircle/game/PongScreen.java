@@ -3,9 +3,7 @@ package net.approachcircle.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import net.approachcircle.game.backend.CollisionUtility;
-import net.approachcircle.game.backend.Screen;
-import net.approachcircle.game.backend.Size;
+import net.approachcircle.game.backend.*;
 
 import java.util.Random;
 
@@ -16,6 +14,7 @@ public class PongScreen extends Screen {
     private final Ball ball;
     private final Score score;
     private final Difficulty difficulty;
+    private final TextRenderable roundName;
 
     public PongScreen(Difficulty difficulty) {
         player = new Player();
@@ -41,6 +40,11 @@ public class PongScreen extends Screen {
         this.difficulty = difficulty;
         score = new Score();
         addMember(score);
+        roundName = new TextRenderable("Round 1", DefaultTextScaling.SMALL);
+        roundName.render();
+        roundName.centerX(true);
+        roundName.setY(Gdx.graphics.getHeight() - roundName.getHeight() - score.getHeight() - 30);
+        addMember(roundName);
     }
 
 
@@ -97,6 +101,15 @@ public class PongScreen extends Screen {
         handleCollisionProjection();
         handleCollisions();
         moveAIOpponent();
+        roundName.setText("Round " + ((score.getOpponentScore() + score.getPlayerScore()) + 1));
+        if (score.getPlayerScore() == score.getWinCondition() - 1 ||
+                score.getOpponentScore() == score.getWinCondition() - 1) {
+            roundName.setText("Match point");
+        }
+        if (score.getPlayerScore() == score.getWinCondition() - 1 &&
+                score.getOpponentScore() == score.getWinCondition() - 1) {
+            roundName.setText("Sudden death");
+        }
         if (score.playerWon()) {
             Game.getInstance().getScreenStack().push(new ResultScreen(Outcome.Win, difficulty));
         }
