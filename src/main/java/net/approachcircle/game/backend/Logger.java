@@ -1,5 +1,7 @@
 package net.approachcircle.game.backend;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,16 +12,27 @@ public class Logger {
     private static boolean initialised = false;
     private static String path;
     private static StringBuilder logName;
+    private static boolean haveFileAccess = true;
     private static final List<PrintStream> outStreams = new ArrayList<>(List.of(new PrintStream[] { System.out }));
     private static final List<PrintStream> errorStreams = new ArrayList<>(List.of(new PrintStream[] { System.err }));
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
     public static void initialise(String name) {
         if (initialised) return;
-        path = String.format("%s\\%s\\logs\\", System.getenv("APPDATA"), name);
+        if (SystemUtils.IS_OS_WINDOWS) {
+            path = String.format("%s\\%s\\logs\\", System.getenv("APPDATA"), name);
+        } else if (SystemUtils.IS_OS_LINUX) {
+            path = String.format("%s/.%s/logs/", System.getProperty("user.home"), name);
+        } else {
+            haveFileAccess = false;
+        }
         logName = new StringBuilder(dateFormat.format(new Date()));
-        initDir();
-        initFile();
+        if (haveFileAccess) {
+            initDir();
+            initFile();
+        } else {
+            warn("file logging disabled (maybe your OS is not fully supported?)");
+        }
         initialised = true;
     }
 
