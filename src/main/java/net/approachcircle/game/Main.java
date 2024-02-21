@@ -13,7 +13,7 @@ public class Main {
         config.setForegroundFPS(60);
         config.setMaximized(true);
         config.setTitle("Pong");
-        config.setWindowIcon(Files.FileType.Classpath, "app-icon.png");
+        config.setWindowIcon(Files.FileType.Classpath, "app-icon-upscale.png");
         try {
             new Lwjgl3Application(Game.getInstance(), config);
         } catch (RuntimeException e) {
