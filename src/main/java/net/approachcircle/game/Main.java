@@ -2,8 +2,7 @@ package net.approachcircle.game;
 
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.*;
 import net.approachcircle.game.backend.Logger;
 
 public class Main {
@@ -14,6 +13,7 @@ public class Main {
         config.setMaximized(true);
         config.setTitle("Pong");
         config.setWindowIcon(Files.FileType.Classpath, "app-icon-upscale.png");
+        config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
         try {
             new Lwjgl3Application(Game.getInstance(), config);
         } catch (RuntimeException e) {
