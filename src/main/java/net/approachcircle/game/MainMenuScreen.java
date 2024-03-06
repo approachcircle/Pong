@@ -49,7 +49,6 @@ public class MainMenuScreen extends Screen {
         multiplayerButton.setY(multiplayerButton.getY() - (sp_button_padding + mp_button_padding));
         addMember(multiplayerButton);
         if (!Locale.getDefault().getCountry().equalsIgnoreCase("GB")) {
-            // wrongLayout.toggleVisibility();
             Game.getInstance().getNotificationStack().push(
                     new DialogBox(DialogType.Information, wrongLayoutMessage.toString(), Game.getInstance())
             );
