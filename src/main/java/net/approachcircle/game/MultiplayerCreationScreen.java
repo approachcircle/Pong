@@ -39,7 +39,6 @@ public class MultiplayerCreationScreen extends Screen {
             }
         }, Game.getInstance()));
         }
-        addMember(offlineDialog);
     }
 
     @Override
