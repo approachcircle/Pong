@@ -15,7 +15,7 @@ import java.util.Objects;
  *     be the last member added to the {@code Screen}.
  * </b>
  */
-public class DialogBox extends Renderable implements Transformable {
+public class DialogBox extends Notification implements Transformable {
     private float x;
     private float y;
     private float width;
@@ -45,7 +45,7 @@ public class DialogBox extends Renderable implements Transformable {
             this.responseListener = new DialogListenerAdapter() {
                 @Override
                 public void onOk() {
-                    hide();
+                    kill();
                 }
             };
         } else {
@@ -56,7 +56,6 @@ public class DialogBox extends Renderable implements Transformable {
         this.prompt = new TextRenderable(prompt, DefaultTextScaling.SUBTITLE);
         positionText();
         layoutButtons();
-        hide();
     }
 
     public DialogBox(DialogType type, String prompt, InputManager inputManager) {
@@ -118,11 +117,13 @@ public class DialogBox extends Renderable implements Transformable {
         }
     }
 
+    @Override
     public void setPrompt(String prompt) {
         this.prompt.setText(prompt);
         positionText();
     }
 
+    @Override
     public String getPrompt() {
         return prompt.getText();
     }
@@ -165,5 +166,22 @@ public class DialogBox extends Renderable implements Transformable {
     @Override
     public void setY(float y) {
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        int previewLength = 30;
+        String result = String.format("(%s): ", type.name().toLowerCase());
+        if (prompt.getText().length() > previewLength) {
+            result += prompt.getText().substring(0, previewLength);
+            result += "...";
+        } else {
+            result += prompt.getText();
+        }
+        return result;
+    }
+
+    public DialogType getType() {
+        return type;
     }
 }

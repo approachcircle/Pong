@@ -6,18 +6,21 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import net.approachcircle.game.backend.*;
 import net.approachcircle.game.network.ServerConnection;
 
-public class Game extends ApplicationAdapter implements ScreenManager, InputManager {
+
+public class Game extends ApplicationAdapter implements ScreenManager, NotificationManager, InputManager {
     public static Game instance;
     private Crosshair crosshair;
     private InputMultiplexer inputMultiplexer;
     private ScreenStack screenStack;
     private DiscordPresence discord;
+    private NotificationStack notificationStack;
 
     @Override
     public void create() {
         ServerConnection.getInstance().connect();
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
+        notificationStack = new NotificationStack(this);
         discord = new DiscordPresence();
         Gdx.input.setInputProcessor(inputMultiplexer);
         screenStack.push(new MainMenuScreen());
@@ -41,6 +44,14 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
         }
         if (!screenStack.isEmpty()) {
             screenStack.peek().render();
+        }
+        if (!notificationStack.isEmpty()) {
+            if (!notificationStack.peek().isAlive()) {
+                notificationStack.pop();
+            }
+        }
+        if (!notificationStack.isEmpty()) {
+            notificationStack.peek().render();
         }
         crosshair.render();
         discord.update(getDiscordState());
@@ -102,5 +113,10 @@ public class Game extends ApplicationAdapter implements ScreenManager, InputMana
     @Override
     public void clearInputProcessors() {
         inputMultiplexer.clear();
+    }
+
+    @Override
+    public NotificationStack getNotificationStack() {
+        return notificationStack;
     }
 }

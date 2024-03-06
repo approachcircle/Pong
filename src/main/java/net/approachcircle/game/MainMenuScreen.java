@@ -48,12 +48,11 @@ public class MainMenuScreen extends Screen {
         multiplayerButton.center();
         multiplayerButton.setY(multiplayerButton.getY() - (sp_button_padding + mp_button_padding));
         addMember(multiplayerButton);
-        DialogBox comingSoon = new DialogBox(DialogType.Information, "coming soon!", Game.getInstance());
-        addMember(comingSoon);
-        DialogBox wrongLayout = new DialogBox(DialogType.Information, wrongLayoutMessage.toString(), Game.getInstance());
-        addMember(wrongLayout);
         if (!Locale.getDefault().getCountry().equalsIgnoreCase("GB")) {
-            wrongLayout.toggleVisibility();
+            // wrongLayout.toggleVisibility();
+            Game.getInstance().getNotificationStack().push(
+                    new DialogBox(DialogType.Information, wrongLayoutMessage.toString(), Game.getInstance())
+            );
         }
     }
 

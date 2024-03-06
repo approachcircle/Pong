@@ -30,14 +30,14 @@ public class MultiplayerCreationScreen extends Screen {
         createButton.setX(createButton.getX() + (createButton.getWidth() / 2) + PADDING);
         createButton.setY(PADDING * 3);
         addMember(createButton);
-        DialogBox offlineDialog = new DialogBox(DialogType.Information, "you are not online!", new DialogListenerAdapter() {
+        if (ServerConnection.getInstance().getState() == ConnectionState.Offline) {
+            Game.getInstance().getNotificationStack().push(new DialogBox(DialogType.Information, "you are not online!", new DialogListenerAdapter() {
             @Override
             public void onOk() {
                 Game.getInstance().getScreenStack().pop();
+                Game.getInstance().getNotificationStack().pop();
             }
-        }, Game.getInstance());
-        if (ServerConnection.getInstance().getState() == ConnectionState.Offline) {
-            offlineDialog.toggleVisibility();
+        }, Game.getInstance()));
         }
         addMember(offlineDialog);
     }
