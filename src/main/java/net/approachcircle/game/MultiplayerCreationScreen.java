@@ -37,7 +37,7 @@ public class MultiplayerCreationScreen extends Screen {
                 Game.getInstance().getScreenStack().pop();
                 Game.getInstance().getNotificationStack().pop();
             }
-        }, Game.getInstance()));
+            }, Game.getInstance()));
         }
     }
 

@@ -20,7 +20,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
         ServerConnection.getInstance().connect();
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
-        notificationStack = new NotificationStack(this);
+        notificationStack = new NotificationStack();
         discord = new DiscordPresence();
         Gdx.input.setInputProcessor(inputMultiplexer);
         screenStack.push(new MainMenuScreen());
