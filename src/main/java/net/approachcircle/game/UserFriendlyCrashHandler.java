@@ -25,7 +25,7 @@ public class UserFriendlyCrashHandler {
         JLabel icon = new JLabel(new ImageIcon(getIconBytes()));
         JLabel heading = new JLabel("an error occurred and pong had to close! :(");
         heading.setFont(heading.getFont().deriveFont(Collections.singletonMap(TextAttribute.SIZE, 18)));
-        JLabel error = new JLabel("<html><style>body {color: red;}</style><body width=385>" + exception + "</body></html>");
+        JLabel error = new JLabel("<html><style>body {color: red;}</style><body width=385>" + exception.getClass().getSimpleName() + " (refer to the console for the full stacktrace)</body></html>");
         error.setFont(error.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_LIGHT)));
         JButton reveal = new JButton("click to reveal error information");
         reveal.addActionListener(event -> error.setVisible(true));
