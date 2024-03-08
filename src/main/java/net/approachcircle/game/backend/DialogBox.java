@@ -168,18 +168,6 @@ public class DialogBox extends Notification implements Transformable {
         this.y = y;
     }
 
-    @Override
-    public String toString() {
-        int previewLength = 30;
-        String result = String.format("(%s): ", type.name().toLowerCase());
-        if (prompt.getText().length() > previewLength) {
-            result += prompt.getText().substring(0, previewLength);
-            result += "...";
-        } else {
-            result += prompt.getText();
-        }
-        return result;
-    }
 
     public DialogType getType() {
         return type;
