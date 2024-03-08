@@ -14,6 +14,7 @@ public class Button extends Renderable implements Transformable {
     private final ButtonClickListener listener;
     private InputAdapter inputProcessor;
     private final InputManager inputManager;
+    private ButtonState state;
 
     public Button(String text, boolean background, ButtonClickListener listener, InputManager inputManager, float scale) {
         this.background = background;
@@ -30,6 +31,7 @@ public class Button extends Renderable implements Transformable {
             setWidth(textRenderable.getWidth() - textRenderable.getScale() + padding);
             setHeight(textRenderable.getHeight() + padding + textRenderable.getScale());
         }
+        setState(ButtonState.Enabled);
     }
     public Button(String text, boolean background) {
         this(text, background, null, null);
@@ -43,8 +45,8 @@ public class Button extends Renderable implements Transformable {
     }
 
     private void updateInputProcessor() {
-        // no input manager or listener provided, don't bother setting input processor
-        if (inputManager == null || listener == null) {
+        // no input manager or listener provided, or the button is disabled, so don't bother setting input processor
+        if (inputManager == null || listener == null || state == ButtonState.Disabled) {
             return;
         }
         if (inputProcessor != null) {
@@ -64,9 +66,20 @@ public class Button extends Renderable implements Transformable {
         inputManager.addInputProcessor(inputProcessor);
     }
 
+    public void setState(ButtonState state) {
+        this.state = state;
+    }
+
+    public ButtonState getState() {
+        return this.state;
+    }
+
     @Override
     public void render() {
         updateInputProcessor();
+        if (state == ButtonState.Disabled) {
+            textRenderable.setColor(Color.DARK_GRAY);
+        }
         if (background) {
             buttonBackground.setX(getX());
             buttonBackground.setY(getY());
