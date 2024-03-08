@@ -24,20 +24,22 @@ public class MultiplayerCreationScreen extends Screen {
         addMember(joinButton);
         Button createButton = new Button("Create a game", true, (x, y, b) -> {
             ServerResponse response = ServerConnection.getInstance().emitEventSynchronously(GameEvent.CREATE_GAME);
-            System.out.println(response.message);
         }, Game.getInstance());
         createButton.center();
         createButton.setX(createButton.getX() + (createButton.getWidth() / 2) + PADDING);
         createButton.setY(PADDING * 3);
         addMember(createButton);
         if (ServerConnection.getInstance().getState() == ConnectionState.Offline) {
-            Game.getInstance().getNotificationStack().push(new DialogBox(DialogType.Information, "you are not online!", new DialogListenerAdapter() {
-            @Override
-            public void onOk() {
-                Game.getInstance().getScreenStack().pop();
-                Game.getInstance().getNotificationStack().pop();
-            }
-            }, Game.getInstance()));
+            joinButton.setState(ButtonState.Disabled);
+            createButton.setState(ButtonState.Disabled);
+            Game.getInstance().getNotificationGroup().add(new ErrorNotification("you are not online!", new NotificationListenerAdapter() {
+                @Override
+                public void onExit() {
+                    if (Game.getInstance().getScreenStack().peek() instanceof MultiplayerCreationScreen) {
+                        Game.getInstance().getScreenStack().pop();
+                    }
+                }
+            }));
         }
     }
 
