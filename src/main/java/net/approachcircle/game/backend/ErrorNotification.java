@@ -1,16 +1,14 @@
 package net.approachcircle.game.backend;
 
 import com.badlogic.gdx.graphics.Color;
-import net.approachcircle.game.backend.*;
 
 public class ErrorNotification extends Notification implements Transformable {
     private float width;
     private float height;
     private float x;
     private float y;
-    private TextRenderable prompt;
-    private TransformableRect background;
-    private final int finalYPosition = 50;
+    private final TextRenderable prompt;
+    private final TransformableRect background;
     private int timeAlive = 0;
     private final int timeToLiveSeconds = 4;
     private final int animationSpeed = 12;
