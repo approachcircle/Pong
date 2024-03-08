@@ -7,6 +7,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
+import net.approachcircle.game.Game;
+import net.approachcircle.game.backend.ErrorNotification;
 import net.approachcircle.game.backend.Logger;
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -18,6 +20,7 @@ public class ServerConnection {
     private GameEvent lastEvent;
     private int ackTimeout = 2000;
     private boolean ackCancelled = false;
+    private int connectionFailures = 0;
 
     private ServerConnection() {
         try {
@@ -27,8 +30,8 @@ public class ServerConnection {
         }
         IO.Options options = IO.Options.builder()
                 .setReconnection(true)
-                .setReconnectionAttempts(5) // try for 5 attempts then bail
-                .setReconnectionDelay(5000) // every 5 seconds
+                .setReconnectionAttempts(Integer.MAX_VALUE) // try forever (basically)
+                .setReconnectionDelay(10000) // every 10 seconds
                 .setTimeout(10000) // timeout after 10 seconds of no response
                 .setForceNew(true)
                 .build();
@@ -106,6 +109,7 @@ public class ServerConnection {
         while (lastResponse == null) {
             if (sw.getTime(TimeUnit.MILLISECONDS) > ackTimeout) {
                 Logger.error(String.format("ack timed out for event '%s'", lastEvent.name()));
+                Game.getInstance().getNotificationGroup().add(new ErrorNotification("server did not respond"));
                 ackCancelled = true;
                 ServerResponse response = new ServerResponse();
                 response.state = State.Error;
@@ -127,7 +131,15 @@ public class ServerConnection {
     public void connect() {
         socket.connect();
         socket.on("connect_error", (args) -> {
-            Logger.error(String.format("network error: %s", ((Exception) args[0]).getMessage()));
+            //TODO: add a reconnection timer in the main menu e.g. "connection failed, retrying in x seconds"
+            connectionFailures++;
+            if (connectionFailures == 1 || connectionFailures % 5 == 0) {
+                Logger.error(String.format("[fail #%d] network error: %s", connectionFailures, ((Exception) args[0]).getMessage()));
+            }
+        });
+        socket.on("connect", (args) -> {
+            connectionFailures = 0;
+            Logger.info("connected to server!");
         });
     }
 
