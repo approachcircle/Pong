@@ -83,7 +83,7 @@ public class TextEntry extends Renderable implements Transformable {
             @Override
             public boolean touchUp(int x, int y, int pointer, int button) {
                 hasFocus = x >= getX() && x <= getX() + getWidth() && Gdx.graphics.getHeight() - y >= getY() && Gdx.graphics.getHeight() - y <= getY() + getHeight();
-                return true;
+                return hasFocus;
             }
 
             @Override
