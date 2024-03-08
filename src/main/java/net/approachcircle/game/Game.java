@@ -13,14 +13,14 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
     private InputMultiplexer inputMultiplexer;
     private ScreenStack screenStack;
     private DiscordPresence discord;
-    private NotificationStack notificationStack;
+    private NotificationGroup notificationGroup;
 
     @Override
     public void create() {
         ServerConnection.getInstance().connect();
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
-        notificationStack = new NotificationStack();
+        notificationGroup = new NotificationGroup();
         discord = new DiscordPresence();
         Gdx.input.setInputProcessor(inputMultiplexer);
         screenStack.push(new MainMenuScreen());
@@ -31,6 +31,12 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
     @Override
     public void render() {
         ScreenUtils.clear(Color.BLACK);
+        if (!screenStack.isEmpty()) {
+            screenStack.peek().render();
+        } else {
+            Gdx.app.exit();
+            return;
+        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             if (screenStack.isEmpty()) {
                 Gdx.app.exit();
@@ -42,17 +48,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
                 default -> throw new EnumConstantNotPresentException(EscapeBehaviour.class, getScreenStack().peek().getEscapeBehaviour().toString());
             }
         }
-        if (!screenStack.isEmpty()) {
-            screenStack.peek().render();
-        }
-        if (!notificationStack.isEmpty()) {
-            if (!notificationStack.peek().isAlive()) {
-                notificationStack.pop();
-            }
-        }
-        if (!notificationStack.isEmpty()) {
-            notificationStack.peek().render();
-        }
+        notificationGroup.render();
         crosshair.render();
         discord.update(getDiscordState());
     }
@@ -70,6 +66,9 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
             return "Finished a game";
         } else if (screenStack.peek() instanceof MultiplayerCreationScreen) {
             return "Creating/joining a multiplayer game";
+        }
+        if (screenStack.peek() == null) {
+            return "Not currently in a screen";
         }
         return "In the " + screenStack.peek().toString();
     }
@@ -116,7 +115,7 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
     }
 
     @Override
-    public NotificationStack getNotificationStack() {
-        return notificationStack;
+    public NotificationGroup getNotificationGroup() {
+        return notificationGroup;
     }
 }
