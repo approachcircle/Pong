@@ -19,7 +19,9 @@ public class ScreenStack {
             peek().onExit();
         }
         Screen previous = stack.pop();
-        peek().onEnter();
+        if (peek() != null) {
+            peek().onEnter();
+        }
         String log = String.format("screen popped: %s -> %s", previous, peek());
         Logger.info(log);
         return previous;
