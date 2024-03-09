@@ -7,8 +7,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
-import net.approachcircle.game.Game;
-import net.approachcircle.game.backend.ErrorNotification;
 import net.approachcircle.game.backend.Logger;
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -108,12 +106,11 @@ public class ServerConnection {
         sw.start();
         while (lastResponse == null) {
             if (sw.getTime(TimeUnit.MILLISECONDS) > ackTimeout) {
-                Logger.error(String.format("ack timed out for event '%s'", lastEvent.name()));
-                Game.getInstance().getNotificationGroup().add(new ErrorNotification("server did not respond"));
+                Logger.error(String.format("ack timed out, response: %s, event: %s", lastResponse, lastEvent));
                 ackCancelled = true;
                 ServerResponse response = new ServerResponse();
                 response.state = State.Error;
-                response.message = "server failed to send acknowledgement";
+                response.message = "server failed to respond";
                 sw.stop();
                 return response;
             }
