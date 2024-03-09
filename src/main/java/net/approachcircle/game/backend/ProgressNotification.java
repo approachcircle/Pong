@@ -3,10 +3,6 @@ package net.approachcircle.game.backend;
 import com.badlogic.gdx.graphics.Color;
 
 public class ProgressNotification extends Notification implements Transformable {
-    private float width;
-    private float height;
-    private float x;
-    private float y;
     private final TextRenderable prompt;
     private final TransformableRect background;
     private final LoadingAnimation loading;
