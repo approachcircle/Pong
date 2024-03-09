@@ -28,7 +28,7 @@ public class LoadingAnimation extends Renderable implements Transformable {
         }
         Texture texture = new Texture(Gdx.files.getFileHandle(String.format("loading/loading_%d.png", frame), Files.FileType.Classpath));
         batch.begin();
-        batch.draw(texture, 50, 50, 50, 50);
+        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
         batch.end();
         frame++;
     }
