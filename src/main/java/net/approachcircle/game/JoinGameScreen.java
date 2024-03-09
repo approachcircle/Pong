@@ -22,7 +22,7 @@ public class JoinGameScreen extends Screen {
         Button joinButton = new Button("Join", true, (x, y, b) -> {
             ServerResponse response = ServerConnection.getInstance().emitEventSynchronously(GameEvent.JOIN_GAME, gameCode.getText());
             if (response.state.equals(State.Error)) {
-                Game.getInstance().getNotificationGroup().add(new ErrorNotification("an error occurred"));
+                Game.getInstance().getNotificationGroup().add(new ErrorNotification(String.format("an error occurred: %s", response.message)));
             } else if (response.state.equals(State.OK)) {
                 Game.getInstance().getNotificationGroup().add(new DialogBox(DialogType.Information, "you're in!", Game.getInstance()));
             } else {
