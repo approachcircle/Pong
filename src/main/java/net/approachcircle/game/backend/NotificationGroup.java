@@ -40,9 +40,9 @@ public class NotificationGroup extends Renderable {
         }
         // only one error notification can be displayed at once, but multiple dialog boxes can be displayed
         // on top of one another
-        if (notification instanceof ErrorNotification) {
+        if (!(notification instanceof DialogBox)) {
             for (Notification current : group) {
-                if (current instanceof ErrorNotification) {
+                if (!(current instanceof DialogBox)) {
                     current.kill();
                 }
             }
