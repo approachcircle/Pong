@@ -12,9 +12,14 @@ public class LoadingAnimation extends Renderable implements Transformable {
     private float y;
     private final SpriteBatch batch;
     private int frame = 0;
+    private final Texture[] frames;
 
     public LoadingAnimation() {
         batch = new SpriteBatch();
+        frames = new Texture[60];
+        for (int i = 0; i < 60; i++) {
+            frames[i] = new Texture(Gdx.files.getFileHandle(String.format("loading/loading_%d.png", i), Files.FileType.Classpath));
+        }
         setWidth(100);
         setHeight(100);
         setX(50);
@@ -26,9 +31,8 @@ public class LoadingAnimation extends Renderable implements Transformable {
         if (frame >= 60) {
             frame = 0;
         }
-        Texture texture = new Texture(Gdx.files.getFileHandle(String.format("loading/loading_%d.png", frame), Files.FileType.Classpath));
         batch.begin();
-        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+        batch.draw(frames[frame], getX(), getY(), getWidth(), getHeight());
         batch.end();
         frame++;
     }
