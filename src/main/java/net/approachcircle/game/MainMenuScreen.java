@@ -16,6 +16,7 @@ public class MainMenuScreen extends Screen {
     private final int title_padding = 50;
     private final int sp_button_padding = 50;
     private final int mp_button_padding = 25;
+    private final ProgressNotification connectingNotif;
     private final StringBuilder wrongLayoutMessage = new StringBuilder()
             .append("it looks like you may not be using a UK QWERTY keyboard layout!\n")
             .append("please note that your layout may not be fully supported\n")
@@ -23,6 +24,7 @@ public class MainMenuScreen extends Screen {
             .append("punctuation. i apologise for the inconvenience.");
 
     public MainMenuScreen() {
+        ServerConnection.getInstance().connect();
         TextRenderable title = new TextRenderable("Pong", DefaultTextScaling.TITLE);
         title.centerX();
         title.setY(Gdx.graphics.getHeight() - title_padding);
@@ -48,6 +50,15 @@ public class MainMenuScreen extends Screen {
         multiplayerButton.center();
         multiplayerButton.setY(multiplayerButton.getY() - (sp_button_padding + mp_button_padding));
         addMember(multiplayerButton);
+        connectingNotif = new ProgressNotification("connecting to server...");
+        Game.getInstance().getNotificationGroup().add(connectingNotif);
+        Button cancelConnection = new Button("Play offline", true, (x, y, b) -> {
+            connectingNotif.setCompleted();
+            ServerConnection.getInstance().close();
+        }, Game.getInstance(), DefaultTextScaling.VERY_SMALL);
+        cancelConnection.setY(connectionStateIcon.getY() + 50);
+        cancelConnection.setX(Gdx.graphics.getWidth() - cancelConnection.getWidth());
+        addMember(cancelConnection);
         if (!Locale.getDefault().getCountry().equalsIgnoreCase("GB")) {
             Game.getInstance().getNotificationGroup().add(
                     new DialogBox(DialogType.Information, wrongLayoutMessage.toString(), Game.getInstance())
@@ -65,6 +76,7 @@ public class MainMenuScreen extends Screen {
         connectionState.setText(String.valueOf(ServerConnection.getInstance().getState()));
         if (ServerConnection.getInstance().getState() == ConnectionState.Online) {
             connectionStateIcon.setColor(Color.GREEN);
+            connectingNotif.setCompleted();
         } else {
             connectionStateIcon.setColor(Color.GRAY);
         }
