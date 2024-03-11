@@ -43,7 +43,7 @@ public class NotificationGroup extends Renderable {
         if (!(notification instanceof DialogBox)) {
             for (Notification current : group) {
                 if (!(current instanceof DialogBox)) {
-                    current.kill();
+                    current.suspend();
                 }
             }
         }
@@ -69,11 +69,18 @@ public class NotificationGroup extends Renderable {
         for (Iterator<Notification> iterator = group.iterator(); iterator.hasNext();) {
             Notification notification = iterator.next();
             if (!notification.isAlive()) {
+                for (Notification n : group) {
+                    if (n.isSuspended()) {
+                        n.awake();
+                    }
+                }
                 logRemoval(notification);
                 iterator.remove();
                 continue;
             }
-            notification.render();
+            if (!notification.isSuspended()) {
+                notification.render();
+            }
         }
     }
 }

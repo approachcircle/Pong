@@ -3,8 +3,9 @@ package net.approachcircle.game.backend;
 // at some point we may want to give every Notification a onExit and onEnter event handler,
 // moving its NotificationListener into here. this will make it not exclusive to
 // ErrorNotifications.
-public abstract class Notification extends Renderable {
+public abstract class Notification extends Renderable implements Transformable {
     private boolean alive = true;
+    private boolean suspended = false;
     public abstract String getPrompt();
 
     public abstract void setPrompt(String prompt);
@@ -18,6 +19,15 @@ public abstract class Notification extends Renderable {
     }
     public boolean isAlive() {
         return alive;
+    }
+    protected void suspend() {
+        suspended = true;
+    }
+    protected void awake() {
+        suspended = false;
+    }
+    public boolean isSuspended() {
+        return suspended;
     }
 
     @Override
