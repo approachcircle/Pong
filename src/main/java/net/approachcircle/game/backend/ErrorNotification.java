@@ -43,7 +43,7 @@ public class ErrorNotification extends Notification implements Transformable {
         timeAlive++;
         prompt.centerRelativeTo(background);
         if (timeAlive < timeToLiveSeconds * 60) {
-            if (getY() < background.getHeight()) {
+            if (getY() < 0) {
                 setY(getY() + animationSpeed);
             }
         } else {

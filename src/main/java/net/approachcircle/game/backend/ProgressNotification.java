@@ -53,7 +53,7 @@ public class ProgressNotification extends Notification implements Transformable 
         timeAlive++;
         prompt.centerRelativeTo(background);
         if (!isCompleted) {
-            if (getY() < background.getHeight()) {
+            if (getY() < 0) {
                 setY(getY() + animationSpeed);
             }
         } else {
