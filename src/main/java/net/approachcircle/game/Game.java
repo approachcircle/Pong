@@ -52,9 +52,6 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
                 default -> throw new EnumConstantNotPresentException(EscapeBehaviour.class, getScreenStack().peek().getEscapeBehaviour().toString());
             }
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
-            Game.getInstance().getNotificationGroup().add(new ProgressNotification("loading something..."));
-        }
         notificationGroup.render();
         crosshair.render();
         discord.update(getDiscordState());
