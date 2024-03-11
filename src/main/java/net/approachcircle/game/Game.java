@@ -21,7 +21,6 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
     public void create() {
         Logger.info("game instance created");
         Logger.info(String.format("country locale is %s", Locale.getDefault().getCountry()));
-        ServerConnection.getInstance().connect();
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
         notificationGroup = new NotificationGroup();
