@@ -6,6 +6,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import net.approachcircle.game.backend.*;
 import net.approachcircle.game.network.ServerConnection;
 
+import java.util.Locale;
+
 
 public class Game extends ApplicationAdapter implements ScreenManager, NotificationManager, InputManager {
     public static Game instance;
@@ -17,6 +19,8 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
 
     @Override
     public void create() {
+        Logger.info("game instance created");
+        Logger.info(String.format("country locale is %s", Locale.getDefault().getCountry()));
         ServerConnection.getInstance().connect();
         inputMultiplexer = new InputMultiplexer();
         screenStack = new ScreenStack(this);
@@ -47,6 +51,9 @@ public class Game extends ApplicationAdapter implements ScreenManager, Notificat
                 case Other -> {}
                 default -> throw new EnumConstantNotPresentException(EscapeBehaviour.class, getScreenStack().peek().getEscapeBehaviour().toString());
             }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            Game.getInstance().getNotificationGroup().add(new ProgressNotification("loading something..."));
         }
         notificationGroup.render();
         crosshair.render();
