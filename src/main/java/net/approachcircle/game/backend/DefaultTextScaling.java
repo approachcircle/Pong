@@ -5,4 +5,5 @@ public interface DefaultTextScaling {
    float BUTTON = 0.32f;
    float SUBTITLE = 0.45f;
    float SMALL = BUTTON - 0.1f;
+   float VERY_SMALL = SMALL - 0.05f;
 }
